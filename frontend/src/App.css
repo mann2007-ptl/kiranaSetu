@@ -1,42 +1,76 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+html {
+  scroll-behavior: smooth;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+body {
+  font-family: 'Segoe UI', sans-serif;
+  background-color: #F9FAFB;
+  color: #0F172A;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Gradient text */
+.gradient-text {
+  background: linear-gradient(135deg, #4338CA, #6366F1);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
-.card {
-  padding: 2em;
+/* Card hover */
+.card-hover {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  cursor: default;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(67, 56, 202, 0.15);
 }
 
-.read-the-docs {
-  color: #888;
+/* Button hover */
+.btn-primary {
+  background: #4338CA;
+  color: white;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
 }
+.btn-primary:hover {
+  background: #6366F1;
+  transform: scale(1.04);
+}
+
+.btn-secondary {
+  background: transparent;
+  color: #0F172A;
+  border: 2px solid #E5E7EB;
+  padding: 12px 28px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color 0.2s ease, color 0.2s ease;
+}
+.btn-secondary:hover {
+  border-color: #4338CA;
+  color: #4338CA;
+}
+
+/* Fade-in animation */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeInUp 0.6s ease forwards; }
+.fade-up-1 { opacity: 0; animation: fadeInUp 0.6s ease 0.1s forwards; }
+.fade-up-2 { opacity: 0; animation: fadeInUp 0.6s ease 0.2s forwards; }
+.fade-up-3 { opacity: 0; animation: fadeInUp 0.6s ease 0.3s forwards; }
