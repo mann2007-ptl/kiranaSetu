@@ -13,135 +13,67 @@ const BENEFITS = [
 
 const STATS = [
   { value: '2,800+', label: 'Active Stores' },
-  { value: '40%',    label: 'Waste Reduced' },
-  { value: '99.9%',  label: 'Uptime' },
+  { value: '40%', label: 'Waste Reduced' },
+  { value: '99.9%', label: 'Uptime' },
 ]
 
 function SignupSidePanel() {
   return (
-    <div style={{
-      width: '45%',
-      height: '100%',
-      background: 'linear-gradient(145deg, #1e1b4b 0%, #312e81 50%, #4338CA 100%)',
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      padding: '40px 44px',
-      position: 'relative',
-      overflow: 'hidden',
-      flexShrink: 0,
-    }}>
+    <div className="hidden lg:flex flex-col justify-center p-11 relative overflow-hidden shrink-0 z-0">
+      {/* Background Image */}
+      <img
+        src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=900&q=90"
+        alt="Store Background"
+        className="absolute inset-0 w-full h-full object-cover -z-10"
+      />
 
-      {/* Decorative circles */}
-      <div style={{
-        position: 'absolute', top: -100, right: -100,
-        width: 320, height: 320, borderRadius: '50%',
-        background: 'rgba(99,102,241,0.18)', filter: 'blur(40px)'
-      }} />
-      <div style={{
-        position: 'absolute', bottom: -80, left: -80,
-        width: 280, height: 280, borderRadius: '50%',
-        background: 'rgba(99,102,241,0.12)', filter: 'blur(40px)'
-      }} />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-indigo-950/80 backdrop-blur-[4px] -z-10" />
 
       {/* Logo */}
-      <div style={{
-        display: 'flex', alignItems: 'center',
-        gap: 10, zIndex: 1, marginBottom: 40
-      }}>
-        <StorefrontIcon style={{ color: '#A5B4FC', fontSize: 28 }} />
-        <span style={{ color: 'white', fontWeight: 800, fontSize: 20 }}>
-          Kirana<span style={{ color: '#A5B4FC' }}>Setu</span>
+      <div className="flex items-center gap-2.5 z-10 mb-10">
+        <StorefrontIcon className="!text-indigo-300 !text-[28px]" />
+        <span className="text-white font-extrabold text-xl">
+          Kirana<span className="text-indigo-300">Setu</span>
         </span>
       </div>
 
       {/* Badge */}
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: 6,
-        background: 'rgba(165,180,252,0.12)',
-        border: '1px solid rgba(165,180,252,0.25)',
-        borderRadius: 999, padding: '5px 12px',
-        marginBottom: 18, zIndex: 1, width: 'fit-content'
-      }}>
-        <AutoAwesomeIcon style={{ color: '#A5B4FC', fontSize: 13 }} />
-        <span style={{ color: '#A5B4FC', fontSize: 12, fontWeight: 600 }}>
-          Join 2,800+ Store Owners
-        </span>
+      <div className="inline-flex items-center gap-1.5 bg-indigo-300/10 border border-indigo-300/25 rounded-full px-3 py-1 mb-4 z-10 w-fit">
+        <AutoAwesomeIcon className="!text-indigo-300 !text-[13px]" />
+        <span className="text-indigo-300 text-xs font-semibold">Join 2,800+ Store Owners</span>
       </div>
 
       {/* Heading */}
-      <h2 style={{
-        color: 'white', fontSize: 30, fontWeight: 800,
-        lineHeight: 1.3, marginBottom: 12, zIndex: 1
-      }}>
+      <h2 className="text-white text-[30px] font-extrabold leading-snug mb-3 z-10">
         Start growing your store{' '}
-        <span style={{ color: '#A5B4FC' }}>with AI today</span>
+        <span className="text-indigo-300">with AI today</span>
       </h2>
 
       {/* Subtext */}
-      <p style={{
-        color: '#C7D2FE', fontSize: 14, lineHeight: 1.7,
-        marginBottom: 28, zIndex: 1, maxWidth: 320
-      }}>
+      <p className="text-indigo-200 text-sm leading-relaxed mb-7 z-10 max-w-xs">
         Everything you need to manage inventory, track sales, and make smarter decisions — all in one place.
       </p>
 
       {/* Benefits list */}
-      <div style={{
-        display: 'flex', flexDirection: 'column',
-        gap: 12, zIndex: 1, marginBottom: 36
-      }}>
+      <div className="flex flex-col gap-3 z-10 mb-9">
         {BENEFITS.map((b, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-            <CheckCircleIcon style={{ color: '#A5B4FC', fontSize: 18, flexShrink: 0 }} />
-            <span style={{ color: '#E0E7FF', fontSize: 13 }}>{b}</span>
+          <div key={i} className="flex items-center gap-2.5">
+            <CheckCircleIcon className="!text-indigo-300 !text-lg shrink-0" />
+            <span className="text-indigo-100 text-sm">{b}</span>
           </div>
         ))}
       </div>
 
       {/* Stats row */}
-     <div style={{
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  background: 'rgba(255,255,255,0.07)',
-  border: '1px solid rgba(255,255,255,0.1)',
-  borderRadius: 16,
-  padding: '18px 10px',
-  zIndex: 1
-}}>
-  {STATS.map((s, i) => (
-    <div key={i} style={{
-      flex: 1,
-      textAlign: 'center',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: 4,
-      borderRight: i < STATS.length - 1
-        ? '1px solid rgba(255,255,255,0.1)'
-        : 'none'
-    }}>
-      <span style={{
-        color: 'white',
-        fontSize: 22,
-        fontWeight: 800,
-        lineHeight: 1
-      }}>
-        {s.value}
-      </span>
-
-      <span style={{
-        color: '#A5B4FC',
-        fontSize: 12,
-        fontWeight: 500
-      }}>
-        {s.label}
-      </span>
-    </div>
-  ))}
-</div>
+      <div className="flex items-center bg-white/[0.07] border border-white/10 rounded-2xl py-4 px-2.5 z-10">
+        {STATS.map((s, i) => (
+          <div key={i} className={`flex-1 text-center flex flex-col items-center justify-center gap-1 ${i < STATS.length - 1 ? 'border-r border-white/10' : ''}`}>
+            <span className="text-white text-xl font-extrabold leading-none">{s.value}</span>
+            <span className="text-indigo-300 text-xs font-medium">{s.label}</span>
+          </div>
+        ))}
+      </div>
     </div>
   )
 }
