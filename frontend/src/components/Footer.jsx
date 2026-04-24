@@ -3,27 +3,56 @@ import StorefrontIcon from '@mui/icons-material/Storefront'
 
 function Footer() {
   return (
-    <footer style={{
-      background: '#0F172A', color: 'white',
-      padding: '48px 24px'
-    }}>
-      <div style={{
-        maxWidth: 1100, margin: '0 auto',
-        display: 'flex', alignItems: 'center',
-        justifyContent: 'space-between', flexWrap: 'wrap', gap: 16
-      }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-          <StorefrontIcon style={{ color: '#6366F1', fontSize: 26 }} />
-          <span style={{ fontWeight: 700, fontSize: 18 }}>
-            Kirana<span style={{ color: '#6366F1' }}>Setu</span>
-          </span>
+    <footer className="relative bg-gray-950 text-white py-12 px-6">
+
+      {/* Top gradient glow */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />
+
+      <div className="max-w-[1100px] mx-auto">
+
+        {/* Top section */}
+        <div className="flex items-start justify-between flex-wrap gap-8">
+          {/* Logo + tagline */}
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <StorefrontIcon className="!text-indigo-400 !text-[26px]" />
+              <span className="font-bold text-lg">
+                Kirana<span className="text-indigo-400">Setu</span>
+              </span>
+            </div>
+            <p className="text-gray-400 text-sm max-w-xs">
+              AI-powered inventory management built with love for Indian kirana store owners.
+            </p>
+          </div>
+
+          {/* Links */}
+          <div className="flex gap-12 text-sm">
+            <div>
+              <h4 className="font-semibold text-gray-300 mb-3">Product</h4>
+              <ul className="space-y-2 text-gray-500">
+                <li className="hover:text-white transition-colors cursor-pointer">Features</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Pricing</li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="font-semibold text-gray-300 mb-3">Company</h4>
+              <ul className="space-y-2 text-gray-500">
+                <li className="hover:text-white transition-colors cursor-pointer">About</li>
+                <li className="hover:text-white transition-colors cursor-pointer">Contact</li>
+              </ul>
+            </div>
+          </div>
         </div>
-        <p style={{ color: '#94A3B8', fontSize: 14 }}>
-          Built with love for Indian kirana store owners
-        </p>
-        <p style={{ color: '#64748B', fontSize: 12 }}>
-          &copy; {new Date().getFullYear()} KiranaSetu. All rights reserved.
-        </p>
+
+        {/* Bottom bar */}
+        <div className="border-t border-white/10 mt-8 pt-6 text-sm text-gray-500 flex justify-between flex-wrap gap-4">
+          <p>&copy; {new Date().getFullYear()} KiranaSetu. All rights reserved.</p>
+          <div className="flex gap-6">
+            <span className="hover:text-white transition-colors cursor-pointer">Privacy</span>
+            <span className="hover:text-white transition-colors cursor-pointer">Terms</span>
+          </div>
+        </div>
+
       </div>
     </footer>
   )

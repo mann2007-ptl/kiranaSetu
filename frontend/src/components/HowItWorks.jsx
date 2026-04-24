@@ -1,75 +1,78 @@
-import React from 'react';
+import React from 'react'
+import { useNavigate } from 'react-router-dom'
 
 function HowItWorks() {
+  const navigate = useNavigate()
   return (
-    <section id="how-it-works" style={{ padding: '80px 24px', background: '#F8FAFC' }}>
-      <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+    <section id="how-it-works" className="py-20 px-6 bg-gray-50">
+      <div className="max-w-[1100px] mx-auto">
 
         {/* Header Row */}
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 24, marginBottom: 60 }}>
-          <div style={{ maxWidth: 500 }}>
-            <h2 style={{ fontSize: 44, fontWeight: 800, color: '#0F172A', lineHeight: 1.1, marginBottom: 20, letterSpacing: '-0.02em' }}>
-              Simple steps to store intelligence.
+        <div className="flex justify-between items-start flex-wrap gap-6 mb-16">
+          <div className="max-w-[500px]">
+            <h2 className="text-4xl md:text-[44px] font-extrabold text-gray-900 leading-[1.1] mb-5 tracking-tight">
+              Simple steps to store{' '}
+              <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
+                intelligence.
+              </span>
             </h2>
-            <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.6 }}>
+            <p className="text-base text-gray-500 leading-relaxed">
               We've designed KiranaAI to fit into your existing workflow, not disrupt it.
             </p>
           </div>
-          <button style={{
-            background: '#4338CA', color: 'white', fontWeight: 600, fontSize: 15,
-            padding: '12px 28px', borderRadius: 8, border: 'none', cursor: 'pointer'
-          }}>
+          <button
+            onClick={() => navigate('/signup')}
+            className="bg-gradient-to-r from-indigo-600 to-violet-600 text-white font-semibold text-[15px] px-7 py-3 rounded-xl border-none cursor-pointer
+              hover:shadow-lg hover:shadow-indigo-200 hover:-translate-y-0.5 transition-all duration-200"
+          >
             See Full Demo
           </button>
         </div>
 
-        {/* 3 Steps Row */}
-        <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', marginBottom: 100 }}>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>01</h1>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>Connect Your Sales</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
-              Sync your existing POS or use our simplified manual entry to track what's leaving your shelves.
-            </p>
-          </div>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>02</h1>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>AI Processing</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
-              Our engine calculates lead times, safety stocks, and demand velocity automatically for every SKU.
-            </p>
-          </div>
-          <div style={{ flex: 1, minWidth: 260 }}>
-            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>03</h1>
-            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>Optimize & Scale</h3>
-            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
-              Receive automated purchase lists and margin optimization tips every morning before you open.
-            </p>
-          </div>
+        {/* 3 Steps */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-start mb-24">
+          {[
+            { num: '01', title: 'Connect Your Sales', desc: 'Sync your existing POS or use our simplified manual entry to track what\'s leaving your shelves.' },
+            { num: '02', title: 'AI Processing', desc: 'Our engine calculates lead times, safety stocks, and demand velocity automatically for every SKU.' },
+            { num: '03', title: 'Optimize & Scale', desc: 'Receive automated purchase lists and margin optimization tips every morning before you open.' },
+          ].map((step, i) => (
+            <React.Fragment key={step.num}>
+              <div className="relative bg-white rounded-2xl p-8 border border-gray-100 hover:border-indigo-300 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in-up"
+                style={{ animationDelay: `${i * 0.1}s` }}>
+                <span className="text-8xl font-black text-indigo-50 absolute -top-4 -left-2 select-none">
+                  {step.num}
+                </span>
+                <h3 className="relative text-lg font-extrabold text-gray-900 mb-4 pt-10">
+                  {step.title}
+                </h3>
+                <p className="relative text-sm text-gray-500 leading-relaxed">
+                  {step.desc}
+                </p>
+              </div>
+            </React.Fragment>
+          ))}
         </div>
 
         {/* Big CTA */}
-        <div style={{
-          background: 'linear-gradient(135deg, #4338CA, #5B21B6)', borderRadius: 24, padding: '72px 40px',
-          textAlign: 'center', color: 'white'
-        }}>
-          <h2 style={{ fontSize: 44, fontWeight: 800, margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+        <div className="bg-gradient-to-br from-indigo-700 to-violet-700 rounded-3xl py-16 md:py-20 px-10 text-center text-white">
+          <h2 className="text-4xl md:text-[44px] font-extrabold mb-5 tracking-tight leading-[1.1]">
             Ready to transform<br />your Kirana?
           </h2>
-          <p style={{ fontSize: 16, margin: '0 auto 40px', maxWidth: 640, color: '#E0E7FF' }}>
+          <p className="text-base mx-auto mb-10 max-w-[640px] text-indigo-200">
             Join 5,000+ local store owners who have reduced inventory waste by 30% using KiranaAI.
           </p>
-          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
-            <button style={{
-              background: 'white', color: '#4338CA', fontWeight: 800, fontSize: 15,
-              padding: '14px 32px', borderRadius: 8, border: 'none', cursor: 'pointer'
-            }}>
+          <div className="flex justify-center gap-4 flex-wrap">
+            <button
+              onClick={() => navigate('/signup')}
+              className="bg-white text-indigo-700 font-extrabold text-[15px] px-8 py-3.5 rounded-xl border-none cursor-pointer
+                hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200"
+            >
               Get Started for Free
             </button>
-            <button style={{
-              background: '#5b21b6', color: 'white', fontWeight: 600, fontSize: 15,
-              padding: '14px 32px', borderRadius: 8, border: '1px solid #7c3aed', cursor: 'pointer'
-            }}>
+            <button
+              className="bg-violet-800 text-white font-semibold text-[15px] px-8 py-3.5 rounded-xl border border-violet-500 cursor-pointer
+                hover:bg-violet-700 hover:-translate-y-0.5 transition-all duration-200"
+            >
               Schedule a Demo
             </button>
           </div>
@@ -77,7 +80,7 @@ function HowItWorks() {
 
       </div>
     </section>
-  );
+  )
 }
 
-export default HowItWorks;
+export default HowItWorks
