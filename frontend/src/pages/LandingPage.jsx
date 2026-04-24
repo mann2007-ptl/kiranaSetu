@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 
 function LandingPage() {
     return (
-        <div style={{ minHeight: '100vh', background: '#F9FAFB' }}>
+        <div className="min-h-screen bg-white overflow-hidden">
             <Navbar />
             <main>
                 <HeroSection />
