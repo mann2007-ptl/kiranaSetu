@@ -1,106 +1,83 @@
-import React from 'react'
-import AddBoxIcon from '@mui/icons-material/AddBox'
-import PointOfSaleIcon from '@mui/icons-material/PointOfSale'
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome'
-
-const STEPS = [
-  {
-    number: '01',
-    icon: <AddBoxIcon style={{ fontSize: 32, color: '#4338CA' }} />,
-    title: 'Add Products',
-    desc: 'Quickly add products with names, prices, and quantities. Import in bulk or scan barcodes.',
-  },
-  {
-    number: '02',
-    icon: <PointOfSaleIcon style={{ fontSize: 32, color: '#4338CA' }} />,
-    title: 'Track Sales',
-    desc: 'Record every sale instantly. Dashboard updates in real time so stock is always accurate.',
-  },
-  {
-    number: '03',
-    icon: <AutoAwesomeIcon style={{ fontSize: 32, color: '#4338CA' }} />,
-    title: 'Get AI Insights',
-    desc: 'AI analyses your data and gives clear suggestions on what to restock and what is trending.',
-  },
-]
-
-function Step({ number, icon, title, desc }) {
-  return (
-    <div style={{ flex: 1, textAlign: 'center', padding: '0 16px' }}>
-      <div style={{
-        position: 'relative', width: 80, height: 80,
-        borderRadius: 20, background: '#EEF2FF',
-        border: '2px solid #C7D2FE',
-        display: 'flex', alignItems: 'center',
-        justifyContent: 'center', margin: '0 auto 20px'
-      }}>
-        {icon}
-        <span style={{
-          position: 'absolute', top: -10, right: -10,
-          width: 26, height: 26, borderRadius: '50%',
-          background: '#4338CA', color: 'white',
-          fontSize: 11, fontWeight: 700,
-          display: 'flex', alignItems: 'center', justifyContent: 'center'
-        }}>
-          {number}
-        </span>
-      </div>
-      <h3 style={{ fontSize: 16, fontWeight: 700, color: '#0F172A', marginBottom: 8 }}>
-        {title}
-      </h3>
-      <p style={{ fontSize: 14, color: '#475569', lineHeight: 1.6 }}>
-        {desc}
-      </p>
-    </div>
-  )
-}
+import React from 'react';
 
 function HowItWorks() {
   return (
-    <section id="how-it-works" style={{ padding: '0 24px', marginBottom: 80 }}>
+    <section id="how-it-works" style={{ padding: '80px 24px', background: '#F8FAFC' }}>
       <div style={{ maxWidth: 1100, margin: '0 auto' }}>
 
-        {/* Heading */}
-        <div style={{ textAlign: 'center', marginBottom: 56 }}>
-          <p style={{ color: '#4338CA', fontWeight: 600, fontSize: 13,
-            textTransform: 'uppercase', letterSpacing: 2, marginBottom: 8 }}>
-            How It Works
-          </p>
-          <h2 style={{ fontSize: 36, fontWeight: 800, color: '#0F172A', marginBottom: 12 }}>
-            Up and running in 3 simple steps
-          </h2>
-          <p style={{ fontSize: 16, color: '#475569', maxWidth: 440, margin: '0 auto' }}>
-            No technical knowledge needed. Start managing your store smarter today.
-          </p>
-        </div>
-
-        {/* Steps */}
-        <div style={{ display: 'flex', alignItems: 'flex-start', flexWrap: 'wrap', gap: 16 }}>
-          {STEPS.map((step, index) => (
-            <React.Fragment key={index}>
-              <Step {...step} />
-              {index < STEPS.length - 1 && (
-                <div style={{
-                  flex: '0 0 40px', borderTop: '2px dashed #C7D2FE',
-                  marginTop: 40, alignSelf: 'flex-start'
-                }} />
-              )}
-            </React.Fragment>
-          ))}
-        </div>
-
-        {/* CTA */}
-        <div style={{ textAlign: 'center', marginTop: 56 }}>
-          <button className="btn-primary" style={{ padding: '14px 40px', fontSize: 15 }}>
-            Start Your Free Trial Today
+        {/* Header Row */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', flexWrap: 'wrap', gap: 24, marginBottom: 60 }}>
+          <div style={{ maxWidth: 500 }}>
+            <h2 style={{ fontSize: 44, fontWeight: 800, color: '#0F172A', lineHeight: 1.1, marginBottom: 20, letterSpacing: '-0.02em' }}>
+              Simple steps to store intelligence.
+            </h2>
+            <p style={{ fontSize: 16, color: '#475569', lineHeight: 1.6 }}>
+              We've designed KiranaAI to fit into your existing workflow, not disrupt it.
+            </p>
+          </div>
+          <button style={{
+            background: '#4338CA', color: 'white', fontWeight: 600, fontSize: 15,
+            padding: '12px 28px', borderRadius: 8, border: 'none', cursor: 'pointer'
+          }}>
+            See Full Demo
           </button>
-          <p style={{ fontSize: 12, color: '#94A3B8', marginTop: 12 }}>
-            No credit card · 30-day free trial · Cancel anytime
-          </p>
         </div>
+
+        {/* 3 Steps Row */}
+        <div style={{ display: 'flex', gap: 40, flexWrap: 'wrap', marginBottom: 100 }}>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>01</h1>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>Connect Your Sales</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
+              Sync your existing POS or use our simplified manual entry to track what's leaving your shelves.
+            </p>
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>02</h1>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>AI Processing</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
+              Our engine calculates lead times, safety stocks, and demand velocity automatically for every SKU.
+            </p>
+          </div>
+          <div style={{ flex: 1, minWidth: 260 }}>
+            <h1 style={{ fontSize: 80, fontWeight: 900, color: '#E2E8F0', margin: '0 0 -10px', lineHeight: 1 }}>03</h1>
+            <h3 style={{ fontSize: 18, fontWeight: 800, color: '#0F172A', marginBottom: 16 }}>Optimize & Scale</h3>
+            <p style={{ fontSize: 14, color: '#64748B', lineHeight: 1.6 }}>
+              Receive automated purchase lists and margin optimization tips every morning before you open.
+            </p>
+          </div>
+        </div>
+
+        {/* Big CTA */}
+        <div style={{
+          background: 'linear-gradient(135deg, #4338CA, #5B21B6)', borderRadius: 24, padding: '72px 40px',
+          textAlign: 'center', color: 'white'
+        }}>
+          <h2 style={{ fontSize: 44, fontWeight: 800, margin: '0 0 20px', letterSpacing: '-0.02em', lineHeight: 1.1 }}>
+            Ready to transform<br />your Kirana?
+          </h2>
+          <p style={{ fontSize: 16, margin: '0 auto 40px', maxWidth: 640, color: '#E0E7FF' }}>
+            Join 5,000+ local store owners who have reduced inventory waste by 30% using KiranaAI.
+          </p>
+          <div style={{ display: 'flex', justifyContent: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <button style={{
+              background: 'white', color: '#4338CA', fontWeight: 800, fontSize: 15,
+              padding: '14px 32px', borderRadius: 8, border: 'none', cursor: 'pointer'
+            }}>
+              Get Started for Free
+            </button>
+            <button style={{
+              background: '#5b21b6', color: 'white', fontWeight: 600, fontSize: 15,
+              padding: '14px 32px', borderRadius: 8, border: '1px solid #7c3aed', cursor: 'pointer'
+            }}>
+              Schedule a Demo
+            </button>
+          </div>
+        </div>
+
       </div>
     </section>
-  )
+  );
 }
 
-export default HowItWorks
+export default HowItWorks;
