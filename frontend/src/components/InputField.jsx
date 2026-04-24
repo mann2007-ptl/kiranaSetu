@@ -4,25 +4,14 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
   const hasError = formik.touched[name] && formik.errors[name]
 
   return (
-    <div style={{ marginBottom: 18 }}>
-
-      {/* Label */}
-      <label style={{
-        display: 'block', fontSize: 13,
-        fontWeight: 600, color: '#374151', marginBottom: 6
-      }}>
+    <div className="mb-4">
+      <label className="block text-sm font-semibold text-gray-700 mb-1.5">
         {label}
       </label>
 
-      <div style={{ position: 'relative' }}>
-
+      <div className="relative">
         {/* Left icon */}
-        <div style={{
-          position: 'absolute', left: 14, top: '50%',
-          transform: 'translateY(-50%)',
-          color: hasError ? '#EF4444' : '#9CA3AF',
-          display: 'flex', pointerEvents: 'none'
-        }}>
+        <div className={`absolute left-3 top-1/2 -translate-y-1/2 flex pointer-events-none ${hasError ? 'text-red-500' : 'text-gray-400'}`}>
           {icon}
         </div>
 
@@ -31,29 +20,18 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
           type={type}
           value={formik.values[name]}
           onChange={formik.handleChange}
+          onBlur={formik.handleBlur}
           placeholder={label}
-          style={{
-            width: '100%', padding: '12px 44px',
-            border: `1.5px solid ${hasError ? '#EF4444' : '#E5E7EB'}`,
-            borderRadius: 10, fontSize: 14,
-            color: '#0F172A', outline: 'none',
-            background: hasError ? '#FEF2F2' : '#F9FAFB',
-            transition: 'border-color 0.2s',
-          }}
-          onFocus={e => e.target.style.borderColor = '#4338CA'}
-          onBlur={e => {
-            formik.handleBlur(e)
-            e.target.style.borderColor = hasError ? '#EF4444' : '#E5E7EB'
-          }}
+          className={`w-full pl-10 pr-10 py-3 rounded-xl border text-sm bg-white outline-none transition-all duration-200
+            ${hasError
+              ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-2 focus:ring-red-100'
+              : 'border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100'
+            }`}
         />
 
         {/* Right icon */}
         {rightIcon && (
-          <div style={{
-            position: 'absolute', right: 14, top: '50%',
-            transform: 'translateY(-50%)',
-            cursor: 'pointer', color: '#9CA3AF', display: 'flex'
-          }}>
+          <div className="absolute right-3 top-1/2 -translate-y-1/2 cursor-pointer text-gray-400 flex">
             {rightIcon}
           </div>
         )}
@@ -61,9 +39,7 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
 
       {/* Error message */}
       {hasError && (
-        <p style={{ color: '#EF4444', fontSize: 12, marginTop: 4, marginLeft: 2 }}>
-          {formik.errors[name]}
-        </p>
+        <p className="text-xs text-red-500 mt-1 ml-1">{formik.errors[name]}</p>
       )}
     </div>
   )

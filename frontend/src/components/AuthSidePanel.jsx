@@ -7,117 +7,82 @@ import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive'
 
 const FEATURES = [
   {
-    icon: <InventoryIcon style={{ color: '#A5B4FC', fontSize: 18 }} />,
+    icon: <InventoryIcon className="!text-indigo-300 !text-lg" />,
     text: 'Smart inventory tracking in real time',
   },
   {
-    icon: <BarChartIcon style={{ color: '#A5B4FC', fontSize: 18 }} />,
+    icon: <BarChartIcon className="!text-indigo-300 !text-lg" />,
     text: 'AI-powered sales analytics and forecasting',
   },
   {
-    icon: <NotificationsActiveIcon style={{ color: '#A5B4FC', fontSize: 18 }} />,
+    icon: <NotificationsActiveIcon className="!text-indigo-300 !text-lg" />,
     text: 'Instant alerts for stock and expiry',
   },
 ]
 
 function AuthSidePanel() {
   return (
-    <div style={{
-      width: '45%',
-      background: 'linear-gradient(145deg, #1e1b4b 0%, #312e81 50%, #4338CA 100%)',
-      display: 'flex', flexDirection: 'column',
-      justifyContent: 'center', padding: '48px 44px',
-      position: 'relative', overflow: 'hidden',
-    }}>
+    <div className="hidden lg:flex flex-col justify-center p-11 relative overflow-hidden z-0">
+      {/* Background Image */}
+      <img
+        src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=900&q=90"
+        alt="Store Background"
+        className="absolute inset-0 w-full h-full object-cover -z-10"
+      />
 
-      {/* Decorative blurred circles */}
-      <div style={{
-        position: 'absolute', top: -100, right: -100,
-        width: 320, height: 320, borderRadius: '50%',
-        background: 'rgba(99,102,241,0.18)', filter: 'blur(40px)'
-      }} />
-      <div style={{
-        position: 'absolute', bottom: -80, left: -80,
-        width: 280, height: 280, borderRadius: '50%',
-        background: 'rgba(99,102,241,0.12)', filter: 'blur(40px)'
-      }} />
+      {/* Dark overlay for readability */}
+      <div className="absolute inset-0 bg-indigo-950/80 backdrop-blur-[4px] -z-10" />
 
       {/* Logo */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, zIndex: 1, marginBottom: 48 }}>
-        <StorefrontIcon style={{ color: '#A5B4FC', fontSize: 28 }} />
-        <span style={{ color: 'white', fontWeight: 800, fontSize: 20 }}>
-          Kirana<span style={{ color: '#A5B4FC' }}>Setu</span>
+      <div className="flex items-center gap-2.5 z-10 mb-12">
+        <StorefrontIcon className="!text-indigo-300 !text-[28px]" />
+        <span className="text-white font-extrabold text-xl">
+          Kirana<span className="text-indigo-300">Setu</span>
         </span>
       </div>
 
       {/* Badge */}
-      <div style={{
-        display: 'inline-flex', alignItems: 'center', gap: 6,
-        background: 'rgba(165,180,252,0.12)',
-        border: '1px solid rgba(165,180,252,0.25)',
-        borderRadius: 999, padding: '5px 12px',
-        marginBottom: 20, zIndex: 1, width: 'fit-content'
-      }}>
-        <AutoAwesomeIcon style={{ color: '#A5B4FC', fontSize: 13 }} />
-        <span style={{ color: '#A5B4FC', fontSize: 12, fontWeight: 600 }}>
-          AI-Powered Store Management
-        </span>
+      <div className="inline-flex items-center gap-1.5 bg-indigo-300/10 border border-indigo-300/25 rounded-full px-3 py-1 mb-5 z-10 w-fit">
+        <AutoAwesomeIcon className="!text-indigo-300 !text-[13px]" />
+        <span className="text-indigo-300 text-xs font-semibold">AI-Powered Store Management</span>
       </div>
 
       {/* Heading */}
-      <h2 style={{
-        color: 'white', fontSize: 32, fontWeight: 800,
-        lineHeight: 1.3, marginBottom: 14, zIndex: 1
-      }}>
-        Manage your store{' '}
-        <span style={{ color: '#A5B4FC' }}>smarter with AI</span>
+      <h2 className="text-white text-3xl font-extrabold leading-snug mb-3.5 z-10">
+        Kirana-scale.<br />Verified.<br />
+        <span className="text-green-400">Delivered.</span>
       </h2>
 
       {/* Subtext */}
-      <p style={{
-        color: '#C7D2FE', fontSize: 14, lineHeight: 1.7,
-        marginBottom: 32, zIndex: 1, maxWidth: 320
-      }}>
+      <p className="text-indigo-200 text-sm leading-relaxed mb-8 z-10 max-w-xs">
         Join thousands of kirana store owners who save time, reduce waste, and grow revenue.
       </p>
 
       {/* Feature list */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: 14, zIndex: 1, marginBottom: 40 }}>
+      <div className="flex flex-col gap-3.5 z-10 mb-10">
         {FEATURES.map((f, i) => (
-          <div key={i} style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div style={{
-              width: 32, height: 32, borderRadius: 8, flexShrink: 0,
-              background: 'rgba(165,180,252,0.12)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-            }}>
+          <div key={i} className="flex items-center gap-3">
+            <div className="w-8 h-8 rounded-lg shrink-0 bg-indigo-300/10 flex items-center justify-center">
               {f.icon}
             </div>
-            <span style={{ color: '#E0E7FF', fontSize: 13 }}>{f.text}</span>
+            <span className="text-indigo-100 text-sm">{f.text}</span>
           </div>
         ))}
       </div>
 
-      {/* Testimonial */}
-      <div style={{
-        background: 'rgba(255,255,255,0.07)',
-        border: '1px solid rgba(255,255,255,0.1)',
-        borderRadius: 16, padding: '18px 20px', zIndex: 1
-      }}>
-        <p style={{ color: '#C7D2FE', fontSize: 13, lineHeight: 1.6, marginBottom: 14 }}>
-          "KiranaSetu helped me reduce stock waste by 40% in just 2 months."
-        </p>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div style={{
-            width: 34, height: 34, borderRadius: '50%',
-            background: 'linear-gradient(135deg, #6366F1, #A5B4FC)',
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            color: 'white', fontWeight: 700, fontSize: 13, flexShrink: 0
-          }}>R</div>
-          <div>
-            <p style={{ color: 'white', fontSize: 13, fontWeight: 600, margin: 0 }}>Ramesh Patel</p>
-            <p style={{ color: '#A5B4FC', fontSize: 11, margin: 0 }}>Patel General Store, Ahmedabad</p>
+      {/* Feature pills */}
+      <div className="flex gap-3 flex-wrap z-10">
+        {[
+          { t: '95% Accuracy', s: 'AI demand forecast' },
+          { t: 'Auto-Sync', s: 'Live dashboard' },
+          { t: 'Direct ROI', s: 'Zero manual counting' },
+        ].map((item, i) => (
+          <div key={i} className="bg-white/10 backdrop-blur-sm rounded-xl px-4 py-3 border border-white/10 flex-1 min-w-[100px]">
+            <span className="text-green-400 text-sm">✦</span>
+            <h4 className="text-white text-sm font-semibold mt-1">{item.t}</h4>
+            <p className="text-gray-400 text-[11px] mt-0.5">{item.s}</p>
           </div>
-        </div>
+        ))}
       </div>
     </div>
   )
