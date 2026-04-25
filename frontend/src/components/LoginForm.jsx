@@ -32,9 +32,9 @@ function LoginForm() {
   })
 
   return (
-    <div className="w-full max-w-[420px] mx-auto px-6 py-10 sm:px-10 lg:px-16 lg:py-16">
+    <div className="w-full max-w-[420px] mx-auto px-6 py-8 sm:px-10 lg:px-16 lg:py-6">
       {/* Logo */}
-      <div className="flex items-center gap-2 mb-7">
+      <div className="flex items-center gap-2 mb-5">
         <StorefrontIcon className="!text-indigo-700 !text-2xl" />
         <span className="font-extrabold text-[17px] text-gray-900">
           Kirana<span className="text-indigo-700">Setu</span>
@@ -42,10 +42,10 @@ function LoginForm() {
       </div>
 
       {/* Heading */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-1.5">Welcome back</h1>
-      <p className="text-sm text-gray-400 mb-6">Sign in to your KiranaSetu account</p>
+      <h1 className="text-2xl font-bold text-gray-900 mb-1">Welcome back</h1>
+      <p className="text-sm text-gray-400 mb-5">Sign in to your KiranaSetu account</p>
 
-      <form onSubmit={formik.handleSubmit} noValidate>
+      <form onSubmit={formik.handleSubmit} noValidate className="flex flex-col gap-5 sm:gap-6">
 
         <InputField
           icon={<EmailIcon className="!text-[17px]" />}
@@ -55,41 +55,42 @@ function LoginForm() {
           formik={formik}
         />
 
-        <InputField
-          icon={<LockIcon className="!text-[17px]" />}
-          label="Password"
-          name="password"
-          type={showPass ? 'text' : 'password'}
-          formik={formik}
-          rightIcon={
-            <span onClick={() => setShowPass(!showPass)}>
-              {showPass
-                ? <VisibilityOffIcon className="!text-[17px]" />
-                : <VisibilityIcon className="!text-[17px]" />}
-            </span>
-          }
-        />
-
-        {/* Forgot password */}
-        <div className="text-right -mt-2 mb-5">
-          <a href="#" className="text-sm text-indigo-600 font-medium hover:underline">
-            Forgot password?
-          </a>
+        <div className="flex flex-col gap-3">
+          <InputField
+            icon={<LockIcon className="!text-[17px]" />}
+            label="Password"
+            name="password"
+            type={showPass ? 'text' : 'password'}
+            formik={formik}
+            rightIcon={
+              <span onClick={() => setShowPass(!showPass)}>
+                {showPass
+                  ? <VisibilityOffIcon className="!text-[17px]" />
+                  : <VisibilityIcon className="!text-[17px]" />}
+              </span>
+            }
+          />
+          {/* Forgot password */}
+          <div className="text-right">
+            <a href="#" className="text-sm text-indigo-600 font-medium hover:underline">
+              Forgot password?
+            </a>
+          </div>
         </div>
 
         {/* Sign In button */}
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-none rounded-xl text-[15px] font-semibold cursor-pointer
-            hover:opacity-90 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-200 mb-4
+          className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-none rounded-xl text-[15px] font-semibold cursor-pointer
+            hover:opacity-90 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-200 mt-2
             disabled:opacity-75 disabled:cursor-not-allowed"
         >
           {formik.isSubmitting ? 'Signing in...' : 'Sign In'}
         </button>
 
         {/* Divider */}
-        <div className="flex items-center gap-3 mb-3.5">
+        <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-xs text-gray-400 whitespace-nowrap">or continue with</span>
           <div className="flex-1 h-px bg-gray-200" />
@@ -98,15 +99,15 @@ function LoginForm() {
         {/* Google button */}
         <button
           type="button"
-          className="w-full border border-gray-200 rounded-xl py-3 flex items-center justify-center gap-2
-            hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer mb-5"
+          className="w-full border border-gray-200 rounded-xl py-3.5 flex items-center justify-center gap-2
+            hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer"
         >
           <GoogleIcon />
           Continue with Google
         </button>
 
         {/* Sign up link */}
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-500 mt-2">
           Do not have an account?{' '}
           <Link to="/signup" className="text-indigo-600 font-bold no-underline hover:underline">
             Sign Up

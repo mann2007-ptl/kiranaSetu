@@ -42,7 +42,7 @@ function SignupForm() {
   })
 
   return (
-    <div className="w-full max-w-[420px] mx-auto px-6 py-10 sm:px-10 lg:px-16 lg:py-16">
+    <div className="w-full max-w-[420px] mx-auto px-6 py-10 sm:px-10 lg:px-16 lg:py-12">
       {/* Logo */}
       <div className="flex items-center gap-2 mb-6">
         <StorefrontIcon className="!text-indigo-700 !text-2xl" />
@@ -55,7 +55,7 @@ function SignupForm() {
       <h1 className="text-2xl font-bold text-gray-900 mb-1">Create your account</h1>
       <p className="text-sm text-gray-400 mb-6">Start managing your store smarter with AI</p>
 
-      <form onSubmit={formik.handleSubmit} noValidate className="space-y-0">
+      <form onSubmit={formik.handleSubmit} noValidate className="flex flex-col gap-6 sm:gap-7">
 
         <InputField
           icon={<PersonIcon className="!text-[17px]" />}
@@ -123,15 +123,15 @@ function SignupForm() {
         <button
           type="submit"
           disabled={formik.isSubmitting}
-          className="w-full py-3 bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-none rounded-xl text-[15px] font-semibold cursor-pointer
-            hover:opacity-90 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-200 mb-4
+          className="w-full py-4 bg-gradient-to-r from-indigo-600 to-violet-600 text-white border-none rounded-xl text-[15px] font-semibold cursor-pointer
+            hover:opacity-90 hover:shadow-lg hover:shadow-indigo-200 transition-all duration-200
             disabled:opacity-75 disabled:cursor-not-allowed mt-2"
         >
           {formik.isSubmitting ? 'Creating account...' : 'Create Account'}
         </button>
 
         {/* Divider */}
-        <div className="flex items-center gap-3 mb-3.5">
+        <div className="flex items-center gap-3">
           <div className="flex-1 h-px bg-gray-200" />
           <span className="text-xs text-gray-400 whitespace-nowrap">or continue with</span>
           <div className="flex-1 h-px bg-gray-200" />
@@ -140,15 +140,15 @@ function SignupForm() {
         {/* Google button */}
         <button
           type="button"
-          className="w-full border border-gray-200 rounded-xl py-3 flex items-center justify-center gap-2
-            hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer mb-5"
+          className="w-full border border-gray-200 rounded-xl py-3.5 flex items-center justify-center gap-2
+            hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer"
         >
           <GoogleIcon />
           Continue with Google
         </button>
 
         {/* Login link */}
-        <p className="text-center text-sm text-gray-500">
+        <p className="text-center text-sm text-gray-500 mt-2">
           Already have an account?{' '}
           <Link to="/login" className="text-indigo-600 font-semibold no-underline hover:underline">
             Sign In
