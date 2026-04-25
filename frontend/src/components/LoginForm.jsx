@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import EmailIcon from '@mui/icons-material/Email'
 import LockIcon from '@mui/icons-material/Lock'
 import VisibilityIcon from '@mui/icons-material/Visibility'
@@ -22,12 +22,15 @@ function GoogleIcon() {
 
 function LoginForm() {
   const [showPass, setShowPass] = useState(false)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: loginSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('Login submitted:', values)
+      await new Promise(resolve => setTimeout(resolve, 600))
+      navigate('/dashboard')
     },
   })
 

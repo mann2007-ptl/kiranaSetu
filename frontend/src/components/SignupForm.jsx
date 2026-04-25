@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useFormik } from 'formik'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import PersonIcon from '@mui/icons-material/Person'
 import EmailIcon from '@mui/icons-material/Email'
 import PhoneIcon from '@mui/icons-material/Phone'
@@ -25,6 +25,7 @@ function GoogleIcon() {
 function SignupForm() {
   const [showPass, setShowPass] = useState(false)
   const [showConfirm, setShowConfirm] = useState(false)
+  const navigate = useNavigate()
 
   const formik = useFormik({
     initialValues: {
@@ -36,8 +37,10 @@ function SignupForm() {
       confirmPassword: '',
     },
     validationSchema: signupSchema,
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       console.log('Signup submitted:', values)
+      await new Promise(resolve => setTimeout(resolve, 800))
+      navigate('/dashboard')
     },
   })
 
