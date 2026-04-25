@@ -4,8 +4,8 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
   const hasError = formik.touched[name] && formik.errors[name]
 
   return (
-    <div className="mb-4">
-      <label className="block text-sm font-semibold text-gray-700 mb-1.5">
+    <div className="w-full relative">
+      <label className="block text-sm font-semibold text-gray-700 mb-2">
         {label}
       </label>
 
