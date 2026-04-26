@@ -113,3 +113,121 @@ export const aiInsights = [
         priority: 'low'
     }
 ];
+
+export const inventoryStatsData = [
+    {
+        id: 1,
+        title: 'Total SKUs',
+        value: '1,284',
+        trend: '+42 added this month',
+        trendType: 'positive',
+        icon: 'package'
+    },
+    {
+        id: 2,
+        title: 'Low Stock',
+        value: '24',
+        trend: '6 items critical',
+        trendType: 'negative',
+        icon: 'alert-triangle'
+    },
+    {
+        id: 3,
+        title: 'High Demand',
+        value: '182',
+        trend: '+15% weekly increase',
+        trendType: 'positive',
+        icon: 'trending-up'
+    },
+    {
+        id: 4,
+        title: 'Turnover',
+        value: '4.2x',
+        trend: 'Above industry avg',
+        trendType: 'positive',
+        icon: 'indian-rupee'
+    }
+];
+
+export const inventoryProducts = [
+    {
+        id: 'PRD-101',
+        name: 'Organic Full Cream Milk',
+        sku: 'DR-0912',
+        category: 'Dairy',
+        stock: 412,
+        maxStock: 500,
+        status: 'normal',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'PRD-102',
+        name: 'Amul Butter 500g',
+        sku: 'DR-0245',
+        category: 'Dairy',
+        stock: 58,
+        maxStock: 200,
+        status: 'low',
+        image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'PRD-103',
+        name: "Lay's Classic Salted Chips",
+        sku: 'SN-1021',
+        category: 'Snacks',
+        stock: 320,
+        maxStock: 400,
+        status: 'normal',
+        image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'PRD-104',
+        name: 'Tata Salt 1kg',
+        sku: 'ST-0033',
+        category: 'Staples',
+        stock: 85,
+        maxStock: 300,
+        status: 'low',
+        image: '/products/salt.jpg'
+    },
+    {
+        id: 'PRD-105',
+        name: 'Aashirvaad Atta 5kg',
+        sku: 'ST-0078',
+        category: 'Staples',
+        stock: 450,
+        maxStock: 500,
+        status: 'normal',
+        image: '/products/atta.jpg'
+    },
+    {
+        id: 'PRD-106',
+        name: 'Maggi 2-Min Noodles 70g',
+        sku: 'SN-0412',
+        category: 'Snacks',
+        stock: 12,
+        maxStock: 250,
+        status: 'critical',
+        image: '/products/maggi.jpg'
+    },
+    {
+        id: 'PRD-107',
+        name: 'Mother Dairy Paneer 200g',
+        sku: 'DR-0567',
+        category: 'Dairy',
+        stock: 165,
+        maxStock: 200,
+        status: 'normal',
+        image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=80&h=80&fit=crop&q=80'
+    },
+    {
+        id: 'PRD-108',
+        name: 'Fortune Sunlite Oil 1L',
+        sku: 'ST-0190',
+        category: 'Staples',
+        stock: 0,
+        maxStock: 150,
+        status: 'out',
+        image: '/products/oil.jpg'
+    }
+];

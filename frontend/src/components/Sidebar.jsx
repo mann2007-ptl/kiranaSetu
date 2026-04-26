@@ -1,5 +1,5 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import {
     LayoutDashboard,
     Package,
@@ -11,9 +11,11 @@ import {
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
+    const location = useLocation();
+
     const menuItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
-        { name: 'Inventory', icon: Package, path: '/dashboard/inventory' },
+        { name: 'Inventory', icon: Package, path: '/inventory' },
         { name: 'Sales', icon: BarChart3, path: '/dashboard/sales' },
         { name: 'Forecast', icon: TrendingUp, path: '/dashboard/forecast' },
         { name: 'Alerts', icon: BellRing, path: '/dashboard/alerts' },
@@ -26,6 +28,10 @@ const Sidebar = ({ isOpen, onClose }) => {
     ${isOpen ? 'translate-x-0' : '-translate-x-full'}
     lg:translate-x-0 lg:static lg:h-screen lg:shrink-0
   `;
+
+    const isLiveRoute = (path) => {
+        return path === '/dashboard' || path === '/inventory';
+    };
 
     return (
         <>
@@ -55,27 +61,37 @@ const Sidebar = ({ isOpen, onClose }) => {
                 <div className="flex-1 overflow-y-auto custom-scrollbar py-6 px-4 flex flex-col gap-1">
                     {menuItems.map((item) => {
                         const Icon = item.icon;
-                        // Using a simple active state mock since we only implement /dashboard right now
-                        const isActive = item.name === 'Dashboard';
+                        const isActive = location.pathname === item.path;
+                        const isClickable = isLiveRoute(item.path);
 
-                        return (
-                            <a
+                        return isClickable ? (
+                            <NavLink
                                 key={item.name}
-                                href={item.path}
+                                to={item.path}
                                 className={`
                   flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200
                   ${isActive
                                         ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50'
                                         : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
                 `}
-                                onClick={(e) => {
-                                    if (item.name !== 'Dashboard') {
-                                        e.preventDefault(); // Prevent navigating to unbuilt dummy routes
-                                    }
+                                onClick={() => {
                                     if (window.innerWidth < 1024) onClose();
                                 }}
                             >
                                 <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-indigo-600' : 'text-gray-400'} />
+                                {item.name}
+                            </NavLink>
+                        ) : (
+                            <a
+                                key={item.name}
+                                href={item.path}
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    if (window.innerWidth < 1024) onClose();
+                                }}
+                            >
+                                <Icon size={18} strokeWidth={2} className="text-gray-400" />
                                 {item.name}
                             </a>
                         );
