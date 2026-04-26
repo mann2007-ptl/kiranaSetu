@@ -8,6 +8,7 @@ import InventoryPage from './pages/InventoryPage'
 import SalesPage from './pages/SalesPage'
 import ForecastPage from './pages/ForecastPage'
 import AlertsPage from './pages/AlertsPage'
+import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/sales" element={<SalesPage />} />
         <Route path="/forecast" element={<ForecastPage />} />
         <Route path="/alerts" element={<AlertsPage />} />
+        <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </BrowserRouter>
   )

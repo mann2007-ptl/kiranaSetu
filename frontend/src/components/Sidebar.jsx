@@ -19,7 +19,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         { name: 'Sales', icon: BarChart3, path: '/sales' },
         { name: 'Forecast', icon: TrendingUp, path: '/forecast' },
         { name: 'Alerts', icon: BellRing, path: '/alerts' },
-        { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
+        { name: 'Settings', icon: Settings, path: '/settings' },
     ];
 
     const sidebarClasses = `
@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   `;
 
     const isLiveRoute = (path) => {
-        return path === '/dashboard' || path === '/inventory' || path === '/sales' || path === '/forecast' || path === '/alerts';
+        return path === '/dashboard' || path === '/inventory' || path === '/sales' || path === '/forecast' || path === '/alerts' || path === '/settings';
     };
 
     return (
