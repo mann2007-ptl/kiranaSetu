@@ -16,8 +16,8 @@ const Sidebar = ({ isOpen, onClose }) => {
     const menuItems = [
         { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
         { name: 'Inventory', icon: Package, path: '/inventory' },
-        { name: 'Sales', icon: BarChart3, path: '/dashboard/sales' },
-        { name: 'Forecast', icon: TrendingUp, path: '/dashboard/forecast' },
+        { name: 'Sales', icon: BarChart3, path: '/sales' },
+        { name: 'Forecast', icon: TrendingUp, path: '/forecast' },
         { name: 'Alerts', icon: BellRing, path: '/dashboard/alerts' },
         { name: 'Settings', icon: Settings, path: '/dashboard/settings' },
     ];
@@ -30,7 +30,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   `;
 
     const isLiveRoute = (path) => {
-        return path === '/dashboard' || path === '/inventory';
+        return path === '/dashboard' || path === '/inventory' || path === '/sales' || path === '/forecast';
     };
 
     return (
