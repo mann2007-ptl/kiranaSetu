@@ -405,3 +405,16 @@ export const alertsData = [
         status: 'read'
     }
 ];
+
+export const nearbyStores = [
+    { id: 'ST-001', name: 'Sharma Stores', distance: '1.2 km', rating: 4.8, available: true, address: 'Koramangala, 4th Block' },
+    { id: 'ST-002', name: 'Gupta Traders', distance: '3.4 km', rating: 4.5, available: true, address: 'HSR Layout, Sector 2' },
+    { id: 'ST-003', name: 'Verma Provisions', distance: '5.1 km', rating: 4.2, available: false, address: 'BTM Layout, Stage 1' },
+    { id: 'ST-004', name: 'Agarwal Mart', distance: '8.0 km', rating: 4.9, available: true, address: 'Indiranagar, 100ft Road' },
+];
+
+export const supplyRequests = [
+    { id: 'REQ-101', product: 'Fortune Sunlite Oil 1L', quantity: 20, requestingStore: 'Sharma Stores', urgency: 'High', status: 'Pending' },
+    { id: 'REQ-102', product: 'Amul Butter 500g', quantity: 15, requestingStore: 'Gupta Traders', urgency: 'Medium', status: 'Pending' },
+    { id: 'REQ-103', product: 'Aashirvaad Atta 5kg', quantity: 10, requestingStore: 'Verma Provisions', urgency: 'Low', status: 'Accepted' },
+];
