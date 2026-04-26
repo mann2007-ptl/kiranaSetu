@@ -218,7 +218,7 @@ export const inventoryProducts = [
         stock: 165,
         maxStock: 200,
         status: 'normal',
-        image: 'https://images.unsplash.com/photo-1631452180519-c014fe946bc7?w=80&h=80&fit=crop&q=80'
+        image: '/products/paneer.jpg'
     },
     {
         id: 'PRD-108',
@@ -229,5 +229,136 @@ export const inventoryProducts = [
         maxStock: 150,
         status: 'out',
         image: '/products/oil.jpg'
+    }
+];
+
+export const salesProducts = [
+    {
+        id: 'POS-001',
+        name: 'Organic Full Cream Milk',
+        price: 68,
+        category: 'Dairy',
+        stock: 412,
+        badge: 'Best Seller',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'POS-002',
+        name: 'Amul Butter 500g',
+        price: 275,
+        category: 'Dairy',
+        stock: 58,
+        badge: null,
+        image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'POS-003',
+        name: "Lay's Classic Salted Chips",
+        price: 40,
+        category: 'Snacks',
+        stock: 320,
+        badge: 'Popular',
+        image: 'https://images.unsplash.com/photo-1566478989037-eec170784d0b?w=200&h=200&fit=crop'
+    },
+    {
+        id: 'POS-004',
+        name: 'Tata Salt 1kg',
+        price: 24,
+        category: 'Staples',
+        stock: 85,
+        badge: null,
+        image: '/products/salt.jpg'
+    },
+    {
+        id: 'POS-005',
+        name: 'Aashirvaad Atta 5kg',
+        price: 240,
+        category: 'Staples',
+        stock: 450,
+        badge: 'Best Seller',
+        image: '/products/atta.jpg'
+    },
+    {
+        id: 'POS-006',
+        name: 'Maggi 2-Min Noodles 70g',
+        price: 14,
+        category: 'Snacks',
+        stock: 12,
+        badge: null,
+        image: '/products/maggi.jpg'
+    },
+    {
+        id: 'POS-007',
+        name: 'Mother Dairy Paneer 200g',
+        price: 90,
+        category: 'Dairy',
+        stock: 165,
+        badge: null,
+        image: '/products/paneer.jpg'
+    },
+    {
+        id: 'POS-008',
+        name: 'Fortune Sunlite Oil 1L',
+        price: 145,
+        category: 'Staples',
+        stock: 38,
+        badge: null,
+        image: '/products/oil.jpg'
+    }
+];
+
+export const forecastData = [
+    { day: '1', predicted: 240, baseline: 190 },
+    { day: '2', predicted: 280, baseline: 195 },
+    { day: '3', predicted: 310, baseline: 200 },
+    { day: '4', predicted: 290, baseline: 205 },
+    { day: '5', predicted: 420, baseline: 220 },
+    { day: '6', predicted: 450, baseline: 215 },
+    { day: '7', predicted: 380, baseline: 210 },
+    { day: '8', predicted: 410, baseline: 225 },
+    { day: '9', predicted: 480, baseline: 230 },
+    { day: '10', predicted: 520, baseline: 240 },
+    { day: '11', predicted: 550, baseline: 250 },
+    { day: '12', predicted: 590, baseline: 260 },
+    { day: '13', predicted: 620, baseline: 270 },
+    { day: '14', predicted: 650, baseline: 280 },
+];
+
+export const reorderRecommendations = [
+    {
+        id: 'REC-001',
+        name: 'Organic Full Cream Milk',
+        category: 'Dairy',
+        image: 'https://images.unsplash.com/photo-1563636619-e9143da7973b?w=200&h=200&fit=crop',
+        currentStock: 412,
+        suggestedQty: 1500,
+        urgency: 'Scheduled'
+    },
+    {
+        id: 'REC-002',
+        name: 'Amul Butter 500g',
+        category: 'Dairy',
+        image: 'https://images.unsplash.com/photo-1589985270826-4b7bb135bc9d?w=200&h=200&fit=crop',
+        currentStock: 58,
+        suggestedQty: 400,
+        urgency: 'High'
+    },
+    {
+        id: 'REC-003',
+        name: 'Maggi 2-Min Noodles 70g',
+        category: 'Snacks',
+        image: '/products/maggi.jpg',
+        currentStock: 12,
+        suggestedQty: 800,
+        urgency: 'Critical'
+    },
+    {
+        id: 'REC-004',
+        name: 'Tata Salt 1kg',
+        category: 'Staples',
+        image: '/products/salt.jpg',
+        currentStock: 85,
+        suggestedQty: 500,
+        urgency: 'Medium'
     }
 ];
