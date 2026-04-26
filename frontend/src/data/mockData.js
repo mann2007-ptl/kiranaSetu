@@ -362,3 +362,46 @@ export const reorderRecommendations = [
         urgency: 'Medium'
     }
 ];
+
+export const alertsData = [
+    {
+        id: 'ALT-101',
+        type: 'critical',
+        title: 'Critical: Out of stock',
+        description: 'Fortune Sunlite Oil 1L is completely out of stock.',
+        timestamp: '5 mins ago',
+        status: 'unread'
+    },
+    {
+        id: 'ALT-102',
+        type: 'warning',
+        title: 'Low Stock: Amul Butter',
+        description: 'Amul Butter 500g is critically low (58 units left).',
+        timestamp: '2 hours ago',
+        status: 'unread'
+    },
+    {
+        id: 'ALT-103',
+        type: 'info',
+        title: 'Demand Spike: Avocados',
+        description: 'Organic Avocados velocity increased by 120% in the last 24h.',
+        timestamp: '4 hours ago',
+        status: 'read'
+    },
+    {
+        id: 'ALT-104',
+        type: 'success',
+        title: 'Resolved: Atta Replenished',
+        description: 'Aashirvaad Atta 5kg stock has been replenished successfully.',
+        timestamp: '1 day ago',
+        status: 'read'
+    },
+    {
+        id: 'ALT-105',
+        type: 'warning',
+        title: 'Low Stock: Maggi Noodles',
+        description: 'Maggi 2-Min Noodles 70g dropping below safety stock (12 units).',
+        timestamp: '1 day ago',
+        status: 'read'
+    }
+];
