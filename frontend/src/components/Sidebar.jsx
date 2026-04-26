@@ -7,7 +7,8 @@ import {
     TrendingUp,
     BellRing,
     Settings,
-    Store
+    Store,
+    MapPin
 } from 'lucide-react';
 
 const Sidebar = ({ isOpen, onClose }) => {
@@ -19,6 +20,7 @@ const Sidebar = ({ isOpen, onClose }) => {
         { name: 'Sales', icon: BarChart3, path: '/sales' },
         { name: 'Forecast', icon: TrendingUp, path: '/forecast' },
         { name: 'Alerts', icon: BellRing, path: '/alerts' },
+        { name: 'Nearby Supply', icon: MapPin, path: '/nearby-supply' },
         { name: 'Settings', icon: Settings, path: '/settings' },
     ];
 
@@ -30,7 +32,7 @@ const Sidebar = ({ isOpen, onClose }) => {
   `;
 
     const isLiveRoute = (path) => {
-        return path === '/dashboard' || path === '/inventory' || path === '/sales' || path === '/forecast' || path === '/alerts' || path === '/settings';
+        return path === '/dashboard' || path === '/inventory' || path === '/sales' || path === '/forecast' || path === '/alerts' || path === '/nearby-supply' || path === '/settings';
     };
 
     return (

@@ -8,6 +8,7 @@ import InventoryPage from './pages/InventoryPage'
 import SalesPage from './pages/SalesPage'
 import ForecastPage from './pages/ForecastPage'
 import AlertsPage from './pages/AlertsPage'
+import NearbySupplyPage from './pages/NearbySupplyPage'
 import SettingsPage from './pages/SettingsPage'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
         <Route path="/sales" element={<SalesPage />} />
         <Route path="/forecast" element={<ForecastPage />} />
         <Route path="/alerts" element={<AlertsPage />} />
+        <Route path="/nearby-supply" element={<NearbySupplyPage />} />
         <Route path="/settings" element={<SettingsPage />} />
       </Routes>
     </BrowserRouter>
