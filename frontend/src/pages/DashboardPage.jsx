@@ -1,14 +1,70 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import StatCard from '../components/StatCard';
 import SalesChart from '../components/SalesChart';
 import AIInsights from '../components/AIInsights';
 import InventoryList from '../components/InventoryList';
-import { statsData } from '../data/mockData';
 
 const DashboardPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [stats, setStats] = useState([]);
+
+    useEffect(() => {
+        const fetchStats = async () => {
+            try {
+                const res = await fetch('/api/dashboard/stats', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                if (!res.ok) {
+                    console.error("Dashboard stats failed:", await res.text());
+                    return;
+                }
+                const data = await res.json();
+
+                setStats([
+                    {
+                        id: 1,
+                        title: 'Total Products',
+                        value: data.totalProducts,
+                        trend: 'Current active SKUs',
+                        trendType: 'positive',
+                        icon: 'package'
+                    },
+                    {
+                        id: 2,
+                        title: 'Today\'s Sales',
+                        value: `₹${data.todaySales}`,
+                        trend: 'Updating in real-time',
+                        trendType: 'positive',
+                        icon: 'indian-rupee'
+                    },
+                    {
+                        id: 3,
+                        title: 'Low Stock Items',
+                        value: data.lowStockItems,
+                        trend: 'Requires attention',
+                        trendType: 'negative',
+                        icon: 'alert-triangle'
+                    },
+                    {
+                        id: 4,
+                        title: 'Predicted Demand',
+                        value: `+${data.predictedDemand}`,
+                        trend: 'Expected daily items',
+                        trendType: 'positive',
+                        icon: 'trending-up'
+                    }
+                ]);
+            } catch (error) {
+                console.error("Error fetching stats:", error);
+            }
+        };
+
+        fetchStats();
+    }, []);
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
@@ -32,7 +88,7 @@ const DashboardPage = () => {
 
                         {/* Stat Cards Grid */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-5">
-                            {statsData.map((stat) => (
+                            {stats.map((stat) => (
                                 <StatCard
                                     key={stat.id}
                                     title={stat.title}

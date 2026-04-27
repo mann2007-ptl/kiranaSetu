@@ -1,10 +1,39 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Card from './Card';
 import Button from './Button';
-import { aiInsights } from '../data/mockData';
 import { Sparkles, TrendingUp, AlertCircle, TrendingDown } from 'lucide-react';
 
 const AIInsights = () => {
+    const [insights, setInsights] = useState([]);
+
+    useEffect(() => {
+        const fetchInsights = async () => {
+            try {
+                const res = await fetch('/api/dashboard/insights', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (!res.ok) {
+                    return;
+                }
+                const data = await res.json();
+
+                if (!Array.isArray(data)) return;
+
+                // Map the array of strings to the UI format
+                const formatted = data.map((msg, index) => ({
+                    id: `INS-${index}`,
+                    message: msg,
+                    type: msg.toLowerCase().includes('low') || msg.toLowerCase().includes('slow') ? 'action' : 'trend'
+                }));
+
+                setInsights(formatted);
+            } catch (error) {
+                console.error("Error fetching insights:", error);
+            }
+        };
+        fetchInsights();
+    }, []);
+
     const getIcon = (type) => {
         switch (type) {
             case 'trend': return <TrendingUp size={18} className="text-indigo-600" />;
@@ -39,7 +68,7 @@ const AIInsights = () => {
             </div>
 
             <div className="flex-1 flex flex-col gap-4 relative z-10">
-                {aiInsights.map((insight) => (
+                {insights.map((insight) => (
                     <div
                         key={insight.id}
                         className="flex items-start gap-4 p-4 rounded-xl bg-white/70 backdrop-blur-sm border border-white hover:bg-white transition-colors duration-200"
