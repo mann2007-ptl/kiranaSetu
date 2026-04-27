@@ -143,6 +143,7 @@ function SignupForm() {
         {/* Google button */}
         <button
           type="button"
+          onClick={() => { window.location.href = 'http://localhost:5000/api/auth/google' }}
           className="w-full border border-gray-200 rounded-xl py-3.5 flex items-center justify-center gap-2
             hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer"
         >
