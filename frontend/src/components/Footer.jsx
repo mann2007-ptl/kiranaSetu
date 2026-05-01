@@ -3,7 +3,7 @@ import StorefrontIcon from '@mui/icons-material/Storefront'
 
 function Footer() {
   return (
-    <footer className="relative bg-gray-950 text-white py-12 px-6">
+    <footer className="relative bg-gray-950 dark:bg-gray-900 text-white py-12 px-6 border-t border-gray-800 dark:border-gray-700">
 
       {/* Top gradient glow */}
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/2 h-px bg-gradient-to-r from-transparent via-indigo-500 to-transparent" />

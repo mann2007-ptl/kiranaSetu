@@ -4,28 +4,28 @@ import { useNavigate } from 'react-router-dom'
 function HeroSection() {
   const navigate = useNavigate()
   return (
-    <section id="hero" className="relative pt-28 pb-20 bg-white overflow-hidden">
+    <section id="hero" className="relative pt-28 pb-20 bg-white dark:bg-gray-950 overflow-hidden transition-colors duration-300">
 
       {/* Background blob */}
-      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-indigo-100 rounded-full blur-3xl opacity-40 pointer-events-none" />
+      <div className="absolute -top-32 -right-32 w-[500px] h-[500px] bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-3xl opacity-40 pointer-events-none" />
 
       <div className="max-w-[1100px] mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
 
         {/* Left — Text */}
         <div>
-          <div className="opacity-0 animate-fade-in-up inline-flex items-center gap-2 bg-lime-100 text-lime-700 px-4 py-1.5 rounded-full text-sm font-semibold mb-7">
-            <span className="w-2 h-2 bg-lime-600 rounded-full" />
+          <div className="opacity-0 animate-fade-in-up inline-flex items-center gap-2 bg-lime-100 dark:bg-lime-900/30 text-lime-700 dark:text-lime-400 px-4 py-1.5 rounded-full text-sm font-semibold mb-7">
+            <span className="w-2 h-2 bg-lime-600 dark:bg-lime-400 rounded-full" />
             AI-powered for your store
           </div>
 
-          <h1 className="opacity-0 animate-fade-in-up delay-100 text-5xl md:text-6xl font-black text-gray-900 leading-[1.1] mb-6 tracking-tight">
+          <h1 className="opacity-0 animate-fade-in-up delay-100 text-5xl md:text-6xl font-black text-gray-900 dark:text-white leading-[1.1] mb-6 tracking-tight">
             Kirana-store,<br />
             <span className="bg-gradient-to-r from-indigo-600 to-cyan-500 bg-clip-text text-transparent">
               supercharged
             </span>
           </h1>
 
-          <p className="opacity-0 animate-fade-in-up delay-200 text-lg text-gray-500 leading-relaxed mb-10 max-w-md">
+          <p className="opacity-0 animate-fade-in-up delay-200 text-lg text-gray-500 dark:text-gray-400 leading-relaxed mb-10 max-w-md">
             Experience the ease of AI-automated inventory management. We bridge the gap between complex tech and your daily shop operations.
           </p>
 
@@ -40,8 +40,8 @@ function HeroSection() {
               Get Started Free
             </button>
             <button
-              className="bg-white text-indigo-600 border border-indigo-100 px-10 py-4 rounded-full text-base font-bold
-                cursor-pointer shadow-sm hover:border-indigo-300 hover:shadow-md
+              className="bg-white dark:bg-gray-800 text-indigo-600 dark:text-indigo-400 border border-indigo-100 dark:border-gray-700 px-10 py-4 rounded-full text-base font-bold
+                cursor-pointer shadow-sm hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-md
                 hover:-translate-y-0.5 transition-all duration-300"
             >
               Book Demo
@@ -56,9 +56,9 @@ function HeroSection() {
               { val: '100%', color: 'bg-emerald-500', label: 'fresh guarantee' },
             ].map((s) => (
               <div key={s.label}>
-                <h3 className="text-2xl font-black text-gray-900 mb-1">{s.val}</h3>
+                <h3 className="text-2xl font-black text-gray-900 dark:text-white mb-1">{s.val}</h3>
                 <div className={`w-8 h-0.5 ${s.color} mb-1.5`} />
-                <p className="text-gray-500 text-xs font-medium">{s.label}</p>
+                <p className="text-gray-500 dark:text-gray-400 text-xs font-medium">{s.label}</p>
               </div>
             ))}
           </div>
@@ -66,7 +66,7 @@ function HeroSection() {
 
         {/* Right — Hero Image */}
         <div className="flex justify-center relative opacity-0 animate-fade-in-up">
-          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-200/50 rotate-1 hover:rotate-0 transition-transform duration-500">
+          <div className="relative rounded-3xl overflow-hidden shadow-2xl shadow-indigo-200/50 dark:shadow-indigo-900/30 rotate-1 hover:rotate-0 transition-transform duration-500">
             <img
               src="https://images.unsplash.com/photo-1604719312566-8912e9227c6a?w=900&q=90"
               alt="Kirana Store Interior"
@@ -74,7 +74,7 @@ function HeroSection() {
               className="w-full h-auto max-h-[540px] object-cover"
             />
             {/* Floating glass badge */}
-            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-indigo-600 shadow-md flex items-center gap-1.5">
+            <div className="absolute top-4 left-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm rounded-full px-3 py-1.5 text-xs font-semibold text-indigo-600 dark:text-indigo-400 shadow-md flex items-center gap-1.5">
               ✦ AI-Powered
             </div>
           </div>

@@ -13,8 +13,8 @@ const Button = ({
 
     const variants = {
         primary: 'bg-[#4F46E5] text-white hover:bg-indigo-700 shadow-sm hover:shadow-md hover:shadow-indigo-500/20 active:scale-[0.98]',
-        secondary: 'bg-white text-gray-700 border border-gray-200 hover:bg-gray-50 active:scale-[0.98]',
-        ghost: 'bg-transparent text-gray-600 hover:bg-gray-100 hover:text-gray-900 active:scale-[0.98]'
+        secondary: 'bg-white dark:bg-gray-700 text-gray-700 dark:text-gray-200 border border-gray-200 dark:border-gray-600 hover:bg-gray-50 dark:hover:bg-gray-600 active:scale-[0.98]',
+        ghost: 'bg-transparent text-gray-600 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white active:scale-[0.98]'
     };
 
     const sizes = {
