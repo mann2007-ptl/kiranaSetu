@@ -38,9 +38,29 @@ function SignupForm() {
     },
     validationSchema: signupSchema,
     onSubmit: async (values) => {
-      console.log('Signup submitted:', values)
-      await new Promise(resolve => setTimeout(resolve, 800))
-      navigate('/dashboard')
+      try {
+        const response = await fetch('/api/auth/signup', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            name: values.fullName,
+            email: values.email,
+            password: values.password,
+            storeName: values.storeName,
+            phone: values.phone
+          }),
+        })
+        const data = await response.json()
+        if (data.success) {
+          localStorage.setItem('token', data.data.token)
+          localStorage.setItem('user', JSON.stringify(data.data))
+          navigate('/dashboard')
+        } else {
+          alert(data.message || 'Signup failed')
+        }
+      } catch (error) {
+        console.error('Signup error:', error)
+      }
     },
   })
 

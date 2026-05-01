@@ -28,9 +28,23 @@ function LoginForm() {
     initialValues: { email: '', password: '' },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
-      console.log('Login submitted:', values)
-      await new Promise(resolve => setTimeout(resolve, 600))
-      navigate('/dashboard')
+      try {
+        const response = await fetch('/api/auth/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(values),
+        })
+        const data = await response.json()
+        if (data.success) {
+          localStorage.setItem('token', data.data.token)
+          localStorage.setItem('user', JSON.stringify(data.data))
+          navigate('/dashboard')
+        } else {
+          alert(data.message || 'Login failed')
+        }
+      } catch (error) {
+        console.error('Login error:', error)
+      }
     },
   })
 
