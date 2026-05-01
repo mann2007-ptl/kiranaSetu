@@ -49,13 +49,13 @@ function SignupForm() {
       {/* Logo */}
       <div className="flex items-center gap-2 mb-6">
         <StorefrontIcon className="!text-indigo-700 !text-2xl" />
-        <span className="font-extrabold text-[17px] text-gray-900">
+        <span className="font-extrabold text-[17px] text-gray-900 dark:text-white">
           Kirana<span className="text-indigo-700">Setu</span>
         </span>
       </div>
 
       {/* Heading */}
-      <h1 className="text-2xl font-bold text-gray-900 mb-1">Create your account</h1>
+      <h1 className="text-2xl font-bold text-gray-900 dark:text-white mb-1">Create your account</h1>
       <p className="text-sm text-gray-400 mb-6">Start managing your store smarter with AI</p>
 
       <form onSubmit={formik.handleSubmit} noValidate className="flex flex-col gap-6 sm:gap-7">
@@ -144,8 +144,8 @@ function SignupForm() {
         <button
           type="button"
           onClick={() => { window.location.href = 'http://localhost:5000/api/auth/google' }}
-          className="w-full border border-gray-200 rounded-xl py-3.5 flex items-center justify-center gap-2
-            hover:bg-gray-50 transition-colors font-medium text-sm text-gray-700 bg-white cursor-pointer"
+          className="w-full border border-gray-200 dark:border-gray-700 rounded-xl py-3.5 flex items-center justify-center gap-2
+            hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 cursor-pointer"
         >
           <GoogleIcon />
           Continue with Google
