@@ -25,7 +25,7 @@ const Sidebar = ({ isOpen, onClose }) => {
     ];
 
     const sidebarClasses = `
-    fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-gray-100 shadow-[4px_0_24px_rgba(0,0,0,0.02)]
+    fixed inset-y-0 left-0 z-50 w-64 bg-white dark:bg-gray-900 border-r border-gray-100 dark:border-gray-800 shadow-[4px_0_24px_rgba(0,0,0,0.02)]
     transform transition-transform duration-300 ease-in-out flex flex-col
     ${isOpen ? 'translate-x-0' : '-translate-x-full'}
     lg:translate-x-0 lg:static lg:h-screen lg:shrink-0
@@ -48,12 +48,12 @@ const Sidebar = ({ isOpen, onClose }) => {
             {/* Sidebar container */}
             <aside className={sidebarClasses}>
                 {/* Logo */}
-                <div className="h-16 flex items-center px-6 border-b border-gray-50 shrink-0">
+                <div className="h-16 flex items-center px-6 border-b border-gray-50 dark:border-gray-800 shrink-0">
                     <div className="flex items-center gap-2.5">
                         <div className="bg-indigo-600 p-1.5 rounded-lg text-white">
                             <Store size={20} strokeWidth={2.5} />
                         </div>
-                        <span className="font-extrabold text-xl tracking-tight text-gray-900">
+                        <span className="font-extrabold text-xl tracking-tight text-gray-900 dark:text-white">
                             Kirana<span className="text-indigo-600">Setu</span>
                         </span>
                     </div>
@@ -73,27 +73,27 @@ const Sidebar = ({ isOpen, onClose }) => {
                                 className={`
                   flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200
                   ${isActive
-                                        ? 'bg-indigo-50 text-indigo-700 shadow-sm shadow-indigo-100/50'
-                                        : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'}
+                                        ? 'bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 shadow-sm shadow-indigo-100/50 dark:shadow-none'
+                                        : 'text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100'}
                 `}
                                 onClick={() => {
                                     if (window.innerWidth < 1024) onClose();
                                 }}
                             >
-                                <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-indigo-600' : 'text-gray-400'} />
+                                <Icon size={18} strokeWidth={isActive ? 2.5 : 2} className={isActive ? 'text-indigo-600 dark:text-indigo-400' : 'text-gray-400 dark:text-gray-500'} />
                                 {item.name}
                             </NavLink>
                         ) : (
                             <a
                                 key={item.name}
                                 href={item.path}
-                                className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+                                className="flex items-center gap-3 px-3 py-2.5 rounded-xl font-medium text-sm transition-all duration-200 text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800 hover:text-gray-900 dark:hover:text-gray-100"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     if (window.innerWidth < 1024) onClose();
                                 }}
                             >
-                                <Icon size={18} strokeWidth={2} className="text-gray-400" />
+                                <Icon size={18} strokeWidth={2} className="text-gray-400 dark:text-gray-500" />
                                 {item.name}
                             </a>
                         );
@@ -101,10 +101,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                 </div>
 
                 {/* Bottom User Area / Help */}
-                <div className="p-4 border-t border-gray-50">
-                    <div className="bg-gradient-to-br from-indigo-50 to-white border border-indigo-100 rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow">
-                        <p className="text-xs font-semibold text-indigo-600 mb-1">PRO PLAN</p>
-                        <p className="text-[13px] text-gray-600 font-medium leading-tight">KiranaSetu Premium</p>
+                <div className="p-4 border-t border-gray-50 dark:border-gray-800">
+                    <div className="bg-gradient-to-br from-indigo-50 to-white dark:from-indigo-900/30 dark:to-gray-800 border border-indigo-100 dark:border-indigo-800 rounded-xl p-4 cursor-pointer hover:shadow-md transition-shadow">
+                        <p className="text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-1">PRO PLAN</p>
+                        <p className="text-[13px] text-gray-600 dark:text-gray-400 font-medium leading-tight">KiranaSetu Premium</p>
                     </div>
                 </div>
             </aside>

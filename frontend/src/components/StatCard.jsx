@@ -23,12 +23,12 @@ const StatCard = ({ title, value, trend, trendType, icon }) => {
                 </div>
             </div>
             <div>
-                <p className="text-sm font-medium text-gray-500 mb-1">{title}</p>
-                <h3 className="text-2xl font-bold text-gray-900 mb-2">{value}</h3>
+                <p className="text-sm font-medium text-gray-500 dark:text-gray-400 mb-1">{title}</p>
+                <h3 className="text-2xl font-bold text-gray-900 dark:text-white mb-2">{value}</h3>
             </div>
-            <div className="mt-auto pt-4 border-t border-gray-50">
+            <div className="mt-auto pt-4 border-t border-gray-50 dark:border-gray-800">
                 <span
-                    className={`text-xs font-semibold ${isPositive ? 'text-emerald-600' : isNegative ? 'text-rose-600' : 'text-gray-500'
+                    className={`text-xs font-semibold ${isPositive ? 'text-emerald-600' : isNegative ? 'text-rose-600' : 'text-gray-500 dark:text-gray-400'
                         }`}
                 >
                     {trend}
