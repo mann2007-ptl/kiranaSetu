@@ -8,7 +8,7 @@ import Footer from '../components/Footer'
 
 function LandingPage() {
     return (
-        <div className="min-h-screen bg-white overflow-hidden">
+        <div className="min-h-screen bg-white dark:bg-gray-950 overflow-hidden">
             <Navbar />
             <main>
                 <HeroSection />

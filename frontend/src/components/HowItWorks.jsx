@@ -4,19 +4,19 @@ import { useNavigate } from 'react-router-dom'
 function HowItWorks() {
   const navigate = useNavigate()
   return (
-    <section id="how-it-works" className="py-20 px-6 bg-gray-50">
+    <section id="how-it-works" className="py-20 px-6 bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <div className="max-w-[1100px] mx-auto">
 
         {/* Header Row */}
         <div className="flex justify-between items-start flex-wrap gap-6 mb-16">
           <div className="max-w-[500px]">
-            <h2 className="text-4xl md:text-[44px] font-extrabold text-gray-900 leading-[1.1] mb-5 tracking-tight">
+            <h2 className="text-4xl md:text-[44px] font-extrabold text-gray-900 dark:text-white leading-[1.1] mb-5 tracking-tight">
               Simple steps to store{' '}
               <span className="bg-gradient-to-r from-indigo-600 to-violet-600 bg-clip-text text-transparent">
                 intelligence.
               </span>
             </h2>
-            <p className="text-base text-gray-500 leading-relaxed">
+            <p className="text-base text-gray-500 dark:text-gray-400 leading-relaxed">
               We've designed KiranaAI to fit into your existing workflow, not disrupt it.
             </p>
           </div>
@@ -37,15 +37,15 @@ function HowItWorks() {
             { num: '03', title: 'Optimize & Scale', desc: 'Receive automated purchase lists and margin optimization tips every morning before you open.' },
           ].map((step, i) => (
             <React.Fragment key={step.num}>
-              <div className="relative bg-white rounded-2xl p-8 border border-gray-100 hover:border-indigo-300 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in-up"
+              <div className="relative bg-white dark:bg-gray-800 rounded-2xl p-8 border border-gray-100 dark:border-gray-700 hover:border-indigo-300 dark:hover:border-indigo-500 hover:shadow-lg transition-all duration-300 opacity-0 animate-fade-in-up"
                 style={{ animationDelay: `${i * 0.1}s` }}>
-                <span className="text-8xl font-black text-indigo-50 absolute -top-4 -left-2 select-none">
+                <span className="text-8xl font-black text-indigo-50 dark:text-indigo-900/60 absolute -top-4 -left-2 select-none">
                   {step.num}
                 </span>
-                <h3 className="relative text-lg font-extrabold text-gray-900 mb-4 pt-10">
+                <h3 className="relative text-lg font-extrabold text-gray-900 dark:text-white mb-4 pt-10">
                   {step.title}
                 </h3>
-                <p className="relative text-sm text-gray-500 leading-relaxed">
+                <p className="relative text-sm text-gray-500 dark:text-gray-400 leading-relaxed">
                   {step.desc}
                 </p>
               </div>

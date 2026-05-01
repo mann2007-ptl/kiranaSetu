@@ -67,7 +67,7 @@ const DashboardPage = () => {
     }, []);
 
     return (
-        <div className="flex h-screen bg-[#F9FAFB] overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+        <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
 
             {/* Fixed Sidebar */}
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
@@ -82,8 +82,8 @@ const DashboardPage = () => {
 
                         {/* Header Content */}
                         <div>
-                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Intelligence Center</h1>
-                            <p className="mt-1.5 text-sm sm:text-base text-gray-500 font-medium">Real-time inventory and demand forecasting</p>
+                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Intelligence Center</h1>
+                            <p className="mt-1.5 text-sm sm:text-base text-gray-500 dark:text-gray-400 font-medium">Real-time inventory and demand forecasting</p>
                         </div>
 
                         {/* Stat Cards Grid */}
