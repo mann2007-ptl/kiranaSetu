@@ -16,7 +16,7 @@ const ForecastPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
     return (
-        <div className="flex h-screen bg-[#F9FAFB] overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+        <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col h-screen min-w-0">
@@ -109,22 +109,22 @@ const ForecastPage = () => {
 
                                 {/* Global Outlook */}
                                 <Card>
-                                    <h3 className="text-base font-bold text-gray-900 mb-1">Global Outlook</h3>
-                                    <p className="text-sm text-gray-500 mb-4">Overall category velocity vs last month</p>
+                                    <h3 className="text-base font-bold text-gray-900 dark:text-white mb-1">Global Outlook</h3>
+                                    <p className="text-sm text-gray-500 dark:text-gray-400 mb-4">Overall category velocity vs last month</p>
 
                                     <div className="flex items-end gap-3 mb-5">
-                                        <span className="text-3xl font-extrabold text-gray-900">18.4%</span>
-                                        <span className="flex items-center text-sm font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md mb-1">
+                                        <span className="text-3xl font-extrabold text-gray-900 dark:text-white">18.4%</span>
+                                        <span className="flex items-center text-sm font-semibold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/30 px-2 py-0.5 rounded-md mb-1">
                                             <TrendingUp size={14} className="mr-1" /> Up
                                         </span>
                                     </div>
 
                                     <div>
                                         <div className="flex justify-between text-xs font-semibold mb-1.5">
-                                            <span className="text-gray-500">Confidence Level</span>
-                                            <span className="text-indigo-600">94%</span>
+                                            <span className="text-gray-500 dark:text-gray-400">Confidence Level</span>
+                                            <span className="text-indigo-600 dark:text-indigo-400">94%</span>
                                         </div>
-                                        <div className="h-2 w-full bg-gray-100 rounded-full overflow-hidden">
+                                        <div className="h-2 w-full bg-gray-100 dark:bg-gray-700 rounded-full overflow-hidden">
                                             <div className="h-full bg-indigo-500 rounded-full" style={{ width: '94%' }}></div>
                                         </div>
                                     </div>
@@ -136,8 +136,8 @@ const ForecastPage = () => {
                         <div className="pt-4">
                             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
                                 <div>
-                                    <h2 className="text-xl font-bold text-gray-900">Reorder Recommendations</h2>
-                                    <p className="mt-1 text-sm text-gray-500 font-medium">Automated quantities based on lead times and stock velocity</p>
+                                    <h2 className="text-xl font-bold text-gray-900 dark:text-white">Reorder Recommendations</h2>
+                                    <p className="mt-1 text-sm text-gray-500 dark:text-gray-400 font-medium">Automated quantities based on lead times and stock velocity</p>
                                 </div>
                                 <Button variant="secondary">Generate Purchase List</Button>
                             </div>
@@ -145,34 +145,34 @@ const ForecastPage = () => {
                             <Card noPadding className="overflow-hidden">
                                 <div className="overflow-x-auto custom-scrollbar">
                                     <table className="w-full text-left text-sm whitespace-nowrap">
-                                        <thead className="bg-gray-50 border-b border-gray-100">
+                                        <thead className="bg-gray-50 dark:bg-gray-800/60 border-b border-gray-100 dark:border-gray-700">
                                             <tr>
-                                                <th className="px-6 py-4 font-semibold text-gray-500">Product Name</th>
-                                                <th className="px-6 py-4 font-semibold text-gray-500">Current Stock</th>
-                                                <th className="px-6 py-4 font-semibold text-gray-500">Suggested Reorder</th>
-                                                <th className="px-6 py-4 font-semibold text-gray-500">Urgency</th>
-                                                <th className="px-6 py-4 font-semibold text-gray-500 text-right">Actions</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">Product Name</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">Current Stock</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">Suggested Reorder</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-500 dark:text-gray-400">Urgency</th>
+                                                <th className="px-6 py-4 font-semibold text-gray-500 dark:text-gray-400 text-right">Actions</th>
                                             </tr>
                                         </thead>
-                                        <tbody className="divide-y divide-gray-50">
+                                        <tbody className="divide-y divide-gray-50 dark:divide-gray-700/50">
                                             {reorderRecommendations.map((item) => (
-                                                <tr key={item.id} className="hover:bg-gray-50/50 transition-colors group">
+                                                <tr key={item.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/40 transition-colors group">
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center gap-3">
-                                                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 shrink-0">
+                                                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 shrink-0">
                                                                 <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                                                             </div>
                                                             <div>
-                                                                <p className="font-semibold text-gray-900">{item.name}</p>
-                                                                <p className="text-xs text-gray-500 mt-0.5">{item.category}</p>
+                                                                <p className="font-semibold text-gray-900 dark:text-white">{item.name}</p>
+                                                                <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{item.category}</p>
                                                             </div>
                                                         </div>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <span className="font-medium text-gray-900">{item.currentStock} units</span>
+                                                        <span className="font-medium text-gray-900 dark:text-gray-200">{item.currentStock} units</span>
                                                     </td>
                                                     <td className="px-6 py-4">
-                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-indigo-50 text-indigo-700 font-bold">
+                                                        <span className="inline-flex items-center px-2.5 py-1 rounded-md bg-indigo-50 dark:bg-indigo-900/40 text-indigo-700 dark:text-indigo-300 font-bold">
                                                             + {item.suggestedQty}
                                                         </span>
                                                     </td>
@@ -180,7 +180,7 @@ const ForecastPage = () => {
                                                         <UrgencyBadge urgency={item.urgency} />
                                                     </td>
                                                     <td className="px-6 py-4 text-right">
-                                                        <button className="text-gray-400 hover:text-indigo-600 transition-colors p-1 rounded-md hover:bg-indigo-50">
+                                                        <button className="text-gray-400 dark:text-gray-500 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors p-1 rounded-md hover:bg-indigo-50 dark:hover:bg-indigo-900/30">
                                                             <MoreVertical size={18} />
                                                         </button>
                                                     </td>

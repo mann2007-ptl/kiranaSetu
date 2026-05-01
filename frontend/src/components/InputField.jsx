@@ -5,7 +5,7 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
 
   return (
     <div className="w-full relative">
-      <label className="block text-sm font-semibold text-gray-700 mb-2">
+      <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-2">
         {label}
       </label>
 
@@ -22,10 +22,10 @@ function InputField({ icon, label, name, type, formik, rightIcon }) {
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
           placeholder={label}
-          className={`w-full pl-10 pr-10 py-3 rounded-xl border text-sm bg-white outline-none transition-all duration-200
+          className={`w-full pl-10 pr-10 py-3 rounded-xl border text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-white outline-none transition-all duration-200 placeholder-gray-400 dark:placeholder-gray-500
             ${hasError
-              ? 'border-red-500 bg-red-50 focus:border-red-500 focus:ring-2 focus:ring-red-100'
-              : 'border-gray-200 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100'
+              ? 'border-red-500 bg-red-50 dark:bg-red-900/20 focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:focus:ring-red-900/30'
+              : 'border-gray-200 dark:border-gray-700 focus:border-indigo-500 dark:focus:border-indigo-400 focus:ring-2 focus:ring-indigo-100 dark:focus:ring-indigo-900/30'
             }`}
         />
 
