@@ -1,6 +1,7 @@
 const {
     calculateTotalProducts,
     calculateTodaySales,
+    calculateTotalSalesAmount,
     getLowStockItems,
     generateForecast,
     generateInsights,
@@ -12,22 +13,18 @@ const {
 // @access  Private
 const getDashboardStats = async (req, res, next) => {
     try {
-        const totalProducts = await calculateTotalProducts();
-        const todaySales = await calculateTodaySales();
-        const lowStockItems = await getLowStockItems();
-
-        // Simple predicted demand placeholder 
-        const predictedDemand = await generateForecast();
-
-        // Sum the forecasted values to return a generic total demand number if needed, 
-        // or just return the array. The spec asks for 'predictedDemand (mock value or simple logic)'
-        const totalDemand = predictedDemand.reduce((sum, item) => sum + item.demand, 0) || 350;
+        const totalProducts = await calculateTotalProducts(req.user._id);
+        const lowStockProducts = await getLowStockItems(req.user._id);
+        const totalSales = await calculateTotalSalesAmount(req.user._id);
 
         res.json({
-            totalProducts,
-            todaySales,
-            lowStockItems,
-            predictedDemand: totalDemand
+            success: true,
+            message: "Dashboard stats fetched successfully",
+            data: {
+                totalProducts,
+                lowStockProducts,
+                totalSales
+            }
         });
     } catch (error) {
         next(error);
@@ -39,8 +36,12 @@ const getDashboardStats = async (req, res, next) => {
 // @access  Private
 const getSalesTrendResponse = async (req, res, next) => {
     try {
-        const trend = await getSalesTrend();
-        res.json(trend);
+        const trend = await getSalesTrend(req.user._id);
+        res.json({
+            success: true,
+            message: "Sales trend fetched successfully",
+            data: trend
+        });
     } catch (error) {
         next(error);
     }
@@ -51,17 +52,25 @@ const getSalesTrendResponse = async (req, res, next) => {
 // @access  Private
 const getForecastResponse = async (req, res, next) => {
     try {
-        const forecast = await generateForecast();
+        const forecast = await generateForecast(req.user._id);
 
         // Even if DB is empty, provide mock structure as per spec
         if (forecast.length === 0) {
-            return res.json([
-                { product: "Milk", demand: 150 },
-                { product: "Snacks", demand: 80 }
-            ]);
+            return res.json({
+                success: true,
+                message: "Forecast fetched successfully",
+                data: [
+                    { product: "Milk", demand: 150 },
+                    { product: "Snacks", demand: 80 }
+                ]
+            });
         }
 
-        res.json(forecast);
+        res.json({
+            success: true,
+            message: "Forecast fetched successfully",
+            data: forecast
+        });
     } catch (error) {
         next(error);
     }
@@ -72,8 +81,12 @@ const getForecastResponse = async (req, res, next) => {
 // @access  Private
 const getInsightsResponse = async (req, res, next) => {
     try {
-        const insights = await generateInsights();
-        res.json(insights);
+        const insights = await generateInsights(req.user._id);
+        res.json({
+            success: true,
+            message: "Insights fetched successfully",
+            data: insights
+        });
     } catch (error) {
         next(error);
     }

@@ -3,8 +3,8 @@ const Sale = require('../models/Sale');
 const { sumSales } = require('../utils/calculateStats');
 
 // Simple AI logic for demand forecasting based on mock trends or random data
-const generateForecast = async () => {
-    const products = await Product.find({}).limit(5); // Get a few products
+const generateForecast = async (userId) => {
+    const products = await Product.find({ user: userId }).limit(5); // Get a few products
 
     return products.map(product => {
         // Mock simple simulation for forecasting
@@ -20,13 +20,13 @@ const generateForecast = async () => {
     });
 };
 
-const getLowStockItems = async () => {
-    const threshold = 20;
-    const lowStockItems = await Product.find({ stock: { $lt: threshold } });
+const getLowStockItems = async (userId) => {
+    const threshold = 10;
+    const lowStockItems = await Product.find({ user: userId, stock: { $lt: threshold } });
     return lowStockItems.length;
 };
 
-const calculateTodaySales = async () => {
+const calculateTodaySales = async (userId) => {
     const startOfDay = new Date();
     startOfDay.setHours(0, 0, 0, 0);
 
@@ -34,6 +34,7 @@ const calculateTodaySales = async () => {
     endOfDay.setHours(23, 59, 59, 999);
 
     const todaySalesData = await Sale.find({
+        user: userId,
         createdAt: {
             $gte: startOfDay,
             $lte: endOfDay
@@ -43,15 +44,20 @@ const calculateTodaySales = async () => {
     return sumSales(todaySalesData);
 };
 
-const calculateTotalProducts = async () => {
-    return await Product.countDocuments();
+const calculateTotalSalesAmount = async (userId) => {
+    const allSales = await Sale.find({ user: userId });
+    return sumSales(allSales);
 };
 
-const generateInsights = async () => {
+const calculateTotalProducts = async (userId) => {
+    return await Product.countDocuments({ user: userId });
+};
+
+const generateInsights = async (userId) => {
     const insights = [];
 
     // Check low stock
-    const lowStockItems = await Product.find({ stock: { $lt: 20 } }).limit(3);
+    const lowStockItems = await Product.find({ user: userId, stock: { $lt: 20 } }).limit(3);
     if (lowStockItems.length > 0) {
         insights.push(`Low stock alert for ${lowStockItems.map(i => i.name).join(', ')}`);
     }
@@ -64,7 +70,7 @@ const generateInsights = async () => {
 };
 
 // Generates the past 7 days of sales 
-const getSalesTrend = async () => {
+const getSalesTrend = async (userId) => {
     const trend = [];
     const days = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
 
@@ -84,6 +90,7 @@ const getSalesTrend = async () => {
 
         // Count sales for that specific day
         const daySales = await Sale.find({
+            user: userId,
             createdAt: { $gte: startOfDay, $lte: endOfDay }
         });
 
@@ -101,6 +108,7 @@ const getSalesTrend = async () => {
 module.exports = {
     calculateTotalProducts,
     calculateTodaySales,
+    calculateTotalSalesAmount,
     getLowStockItems,
     generateForecast,
     generateInsights,
