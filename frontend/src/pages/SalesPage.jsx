@@ -59,7 +59,7 @@ const SalesPage = () => {
     };
 
     return (
-        <div className="flex h-screen bg-[#F9FAFB] overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+        <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
 
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
@@ -72,8 +72,8 @@ const SalesPage = () => {
 
                         {/* Header */}
                         <div className="mb-8">
-                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">Point of Sale</h1>
-                            <p className="mt-1.5 text-sm sm:text-base text-gray-500 font-medium">Quick billing and order management</p>
+                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">Point of Sale</h1>
+                            <p className="mt-1.5 text-sm sm:text-base text-gray-500 dark:text-gray-400 font-medium">Quick billing and order management</p>
                         </div>
 
                         {/* Two-Column Layout */}
@@ -92,7 +92,7 @@ const SalesPage = () => {
                                             value={searchQuery}
                                             onChange={(e) => setSearchQuery(e.target.value)}
                                             placeholder="Search products, SKUs, or categories..."
-                                            className="w-full pl-10 pr-4 py-2.5 bg-white border border-gray-200 rounded-xl text-sm focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-400 font-medium shadow-sm"
+                                            className="w-full pl-10 pr-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl text-sm text-gray-900 dark:text-gray-100 focus:border-indigo-500 focus:ring-4 focus:ring-indigo-500/10 outline-none transition-all placeholder:text-gray-400 font-medium shadow-sm"
                                         />
                                     </div>
 
@@ -104,7 +104,7 @@ const SalesPage = () => {
                                                 className={`px-3.5 py-2 rounded-xl text-sm font-medium transition-all duration-200 cursor-pointer
                                                     ${activeCategory === cat
                                                         ? 'bg-indigo-600 text-white shadow-sm shadow-indigo-200'
-                                                        : 'bg-white text-gray-600 border border-gray-200 hover:bg-gray-50 hover:text-gray-900'
+                                                        : 'bg-white dark:bg-gray-800 text-gray-600 dark:text-gray-300 border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white'
                                                     }`}
                                             >
                                                 {cat}

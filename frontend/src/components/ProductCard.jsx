@@ -11,7 +11,7 @@ const ProductCard = ({ product, onAddToCart }) => {
             onClick={() => !isOutOfStock && onAddToCart(product)}
         >
             {/* Image */}
-            <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-100 mb-3">
+            <div className="relative w-full aspect-square rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 mb-3">
                 <img
                     src={product.image}
                     alt={product.name}
@@ -28,12 +28,12 @@ const ProductCard = ({ product, onAddToCart }) => {
 
             {/* Info */}
             <div className="flex-1 flex flex-col">
-                <h4 className="text-sm font-semibold text-gray-900 truncate mb-1">
+                <h4 className="text-sm font-semibold text-gray-900 dark:text-white truncate mb-1">
                     {product.name}
                 </h4>
                 <div className="flex items-center justify-between mt-auto">
-                    <span className="text-lg font-bold text-gray-900">₹{product.price}</span>
-                    <span className={`text-xs font-medium ${product.stock < 20 ? 'text-rose-500' : 'text-gray-400'}`}>
+                    <span className="text-lg font-bold text-gray-900 dark:text-white">₹{product.price}</span>
+                    <span className={`text-xs font-medium ${product.stock < 20 ? 'text-rose-500' : 'text-gray-400 dark:text-gray-500'}`}>
                         {isOutOfStock ? 'Out of stock' : `${product.stock} left`}
                     </span>
                 </div>

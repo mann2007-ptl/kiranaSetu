@@ -6,12 +6,12 @@ import { inventoryList } from '../data/mockData';
 const InventoryList = () => {
     return (
         <Card className="h-full flex flex-col" noPadding>
-            <div className="p-6 border-b border-gray-100 flex justify-between items-center">
+            <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
                 <div>
-                    <h3 className="text-lg font-bold text-gray-900">Inventory Status</h3>
-                    <p className="text-sm text-gray-500 mt-1">Real-time overview of key items</p>
+                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">Inventory Status</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">Real-time overview of key items</p>
                 </div>
-                <button className="text-sm font-medium text-indigo-600 hover:text-indigo-700 hover:underline px-3 py-1.5 rounded-lg hover:bg-indigo-50 transition-colors">
+                <button className="text-sm font-medium text-indigo-600 dark:text-indigo-400 hover:text-indigo-700 dark:hover:text-indigo-300 hover:underline px-3 py-1.5 rounded-lg hover:bg-indigo-50 dark:hover:bg-indigo-900/30 transition-colors">
                     View All
                 </button>
             </div>
@@ -21,9 +21,9 @@ const InventoryList = () => {
                     {inventoryList.map((item) => (
                         <div
                             key={item.id}
-                            className="flex items-center gap-4 p-4 lg:p-5 border-b border-gray-50 hover:bg-gray-50/80 transition-colors duration-200 last:border-0"
+                            className="flex items-center gap-4 p-4 lg:p-5 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition-colors duration-200 last:border-0"
                         >
-                            <div className="shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-gray-100 shadow-sm border border-gray-200">
+                            <div className="shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-sm border border-gray-200 dark:border-gray-600">
                                 <img
                                     src={item.image}
                                     alt={item.name}
@@ -32,13 +32,13 @@ const InventoryList = () => {
                             </div>
 
                             <div className="flex-1 min-w-0">
-                                <h4 className="text-[15px] font-semibold text-gray-900 truncate">
+                                <h4 className="text-[15px] font-semibold text-gray-900 dark:text-white truncate">
                                     {item.name}
                                 </h4>
                                 <div className="flex items-center gap-2 mt-1">
-                                    <span className="text-xs text-gray-500">{item.category}</span>
-                                    <span className="w-1 h-1 rounded-full bg-gray-300"></span>
-                                    <span className="text-xs font-medium text-gray-700">{item.price}</span>
+                                    <span className="text-xs text-gray-500 dark:text-gray-400">{item.category}</span>
+                                    <span className="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
+                                    <span className="text-xs font-medium text-gray-700 dark:text-gray-300">{item.price}</span>
                                 </div>
                             </div>
 
