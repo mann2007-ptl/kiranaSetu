@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend } from 'recharts';
 import Card from './Card';
 import { useTheme } from '../context/ThemeContext';
+import { apiFetch } from '../config/api';
 
 const SalesChart = () => {
     const [chartData, setChartData] = useState([]);
@@ -10,8 +11,7 @@ const SalesChart = () => {
     useEffect(() => {
         const fetchTrend = async () => {
             try {
-                const res = await fetch('/api/dashboard/sales-trend', {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                const res = await apiFetch('/api/dashboard/sales-trend', {
                 });
                 if (!res.ok) {
                     console.error("Sales trend failed to load");

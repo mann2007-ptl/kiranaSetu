@@ -3,6 +3,7 @@ import Card from './Card';
 import Button from './Button';
 import { Sparkles, TrendingUp, AlertCircle, TrendingDown } from 'lucide-react';
 import { useTheme } from '../context/ThemeContext';
+import { apiFetch } from '../config/api';
 
 const AIInsights = () => {
     const [insights, setInsights] = useState([]);
@@ -11,8 +12,7 @@ const AIInsights = () => {
     useEffect(() => {
         const fetchInsights = async () => {
             try {
-                const res = await fetch('/api/dashboard/insights', {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                const res = await apiFetch('/api/dashboard/insights', {
                 });
                 if (!res.ok) {
                     return;

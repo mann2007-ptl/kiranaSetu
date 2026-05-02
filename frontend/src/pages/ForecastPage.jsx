@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import Card from '../components/Card';
@@ -17,6 +18,10 @@ const ForecastPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+            <Helmet>
+                <title>Demand Forecast — KiranaSetu</title>
+                <meta name="description" content="AI-powered demand predictions and reorder recommendations based on sales velocity and local trends." />
+            </Helmet>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col h-screen min-w-0">
