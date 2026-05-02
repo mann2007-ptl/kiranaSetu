@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import {
@@ -42,6 +43,10 @@ const NearbySupplyPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden font-sans">
+            <Helmet>
+                <title>Nearby Supply — KiranaSetu</title>
+                <meta name="description" content="Locate nearby suppliers and dispatch direct supply requests using Google Maps integration." />
+            </Helmet>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col h-screen min-w-0">

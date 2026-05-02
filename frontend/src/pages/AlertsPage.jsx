@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import {
     AlertTriangle, TrendingUp, CheckCircle, Clock,
     Search, Filter, BellRing, Settings, Eye, X, Zap
@@ -39,6 +40,10 @@ const AlertsPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+            <Helmet>
+                <title>Smart Alerts — KiranaSetu</title>
+                <meta name="description" content="Real-time notifications for stock levels, demand spikes, and critical inventory actions." />
+            </Helmet>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col h-screen min-w-0">
