@@ -5,7 +5,7 @@
  * In production (Vercel): VITE_API_URL = "https://kiranasetu.onrender.com"
  */
 
-export const API_BASE = import.meta.env.VITE_API_URL || '';
+export const API_BASE = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? 'https://kiranasetu.onrender.com' : '');
 
 /**
  * Wrapper around fetch that auto-prepends the API base URL
