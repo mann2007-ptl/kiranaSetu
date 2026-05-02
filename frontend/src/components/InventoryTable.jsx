@@ -1,8 +1,8 @@
 import React, { useState, useMemo } from 'react';
 import Card from './Card';
 import Badge from './Badge';
-import { MoreVertical, Filter } from 'lucide-react';
-import { inventoryProducts } from '../data/mockData';
+import { Filter, Edit2, Trash2 } from 'lucide-react';
+import ProductModal from './ProductModal';
 
 const ITEMS_PER_PAGE = 5;
 const categories = ['All', 'Dairy', 'Snacks', 'Staples'];
@@ -29,14 +29,56 @@ const getStatusBadge = (status) => {
     }
 };
 
-const InventoryTable = () => {
+const InventoryTable = ({ refreshTrigger }) => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
+    const [inventoryProducts, setInventoryProducts] = useState([]);
+    const [editingProduct, setEditingProduct] = useState(null);
+
+    const fetchProducts = async () => {
+        try {
+            const res = await fetch('/api/products', {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            if (res.ok) {
+                const jsonRes = await res.json();
+                if (jsonRes.success && Array.isArray(jsonRes.data)) {
+                    setInventoryProducts(jsonRes.data.map(p => ({
+                        ...p,
+                        id: p._id,
+                        status: p.stock === 0 ? 'out' : p.stock < 20 ? 'low' : 'normal',
+                        image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
+                    })));
+                }
+            }
+        } catch (err) {
+            console.error("Products error:", err);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchProducts();
+    }, [refreshTrigger]);
+
+    const handleDelete = async (id) => {
+        if (!window.confirm("Are you sure you want to delete this product?")) return;
+        try {
+            const res = await fetch(`/api/products/${id}`, {
+                method: 'DELETE',
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            if (res.ok) {
+                fetchProducts();
+            }
+        } catch (error) {
+            console.error("Delete error:", error);
+        }
+    };
 
     const filtered = useMemo(() => {
         if (activeCategory === 'All') return inventoryProducts;
         return inventoryProducts.filter((p) => p.category === activeCategory);
-    }, [activeCategory]);
+    }, [activeCategory, inventoryProducts]);
 
     const totalPages = Math.max(1, Math.ceil(filtered.length / ITEMS_PER_PAGE));
     const paginated = filtered.slice(
@@ -99,8 +141,8 @@ const InventoryTable = () => {
                                     {/* Product */}
                                     <td className="px-6 py-4">
                                         <div className="flex items-center gap-3">
-                                            <div className="shrink-0 w-10 h-10 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-                                                <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                                            <div className="shrink-0 w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
+                                                {product.name.charAt(0).toUpperCase()}
                                             </div>
                                             <div className="min-w-0">
                                                 <p className="text-sm font-semibold text-gray-900 dark:text-white truncate">{product.name}</p>
@@ -136,9 +178,20 @@ const InventoryTable = () => {
 
                                     {/* Actions */}
                                     <td className="px-6 py-4 text-right">
-                                        <button className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-colors cursor-pointer">
-                                            <MoreVertical size={16} />
-                                        </button>
+                                        <div className="flex justify-end gap-2">
+                                            <button
+                                                onClick={() => setEditingProduct(product)}
+                                                className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-indigo-600 dark:hover:text-indigo-400 transition-colors cursor-pointer"
+                                            >
+                                                <Edit2 size={16} />
+                                            </button>
+                                            <button
+                                                onClick={() => handleDelete(product.id)}
+                                                className="p-1.5 rounded-lg text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-rose-600 dark:hover:text-rose-400 transition-colors cursor-pointer"
+                                            >
+                                                <Trash2 size={16} />
+                                            </button>
+                                        </div>
                                     </td>
                                 </tr>
                             );
@@ -170,6 +223,16 @@ const InventoryTable = () => {
                     </div>
                 </div>
             )}
+
+            <ProductModal
+                isOpen={!!editingProduct}
+                product={editingProduct}
+                onClose={() => setEditingProduct(null)}
+                onSuccess={() => {
+                    setEditingProduct(null);
+                    fetchProducts();
+                }}
+            />
         </Card>
     );
 };

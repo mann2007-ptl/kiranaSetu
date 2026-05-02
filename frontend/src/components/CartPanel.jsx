@@ -4,7 +4,7 @@ import Badge from './Badge';
 import Button from './Button';
 import { Minus, Plus, Trash2, Printer, PercentCircle, ShoppingCart } from 'lucide-react';
 
-const CartPanel = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
+const CartPanel = ({ cartItems, onUpdateQuantity, onRemoveItem, onCompleteSale }) => {
     const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
     const gst = Math.round(subtotal * 0.18);
     const total = subtotal + gst;
@@ -71,7 +71,7 @@ const CartPanel = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
                             <Button variant="ghost" size="sm" icon={Printer}>Print Draft</Button>
                             <Button variant="secondary" size="sm" icon={PercentCircle}>Discount</Button>
                         </div>
-                        <Button variant="primary" size="lg" fullWidth icon={ShoppingCart}>
+                        <Button variant="primary" size="lg" fullWidth icon={ShoppingCart} onClick={onCompleteSale}>
                             Complete Sale
                         </Button>
                     </div>
@@ -86,9 +86,9 @@ const CartPanel = ({ cartItems, onUpdateQuantity, onRemoveItem }) => {
 const CartItemRow = ({ item, onUpdateQuantity, onRemoveItem }) => {
     return (
         <div className="flex items-center gap-3 px-5 py-3.5 hover:bg-gray-50/60 dark:hover:bg-gray-700/40 transition-colors">
-            {/* Image */}
-            <div className="shrink-0 w-10 h-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 border border-gray-200 dark:border-gray-600">
-                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+            {/* Icon representation */}
+            <div className="shrink-0 w-10 h-10 rounded-lg bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
+                {item.name.charAt(0).toUpperCase()}
             </div>
 
             {/* Info & Price */}

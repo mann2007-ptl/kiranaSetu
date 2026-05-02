@@ -3,6 +3,7 @@ import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import StatCard from '../components/StatCard';
 import InventoryTable from '../components/InventoryTable';
+import ProductModal from '../components/ProductModal';
 import Button from '../components/Button';
 import { Plus } from 'lucide-react';
 import { inventoryStatsData } from '../data/mockData';
@@ -12,6 +13,8 @@ const tabs = ['All Products', 'Low Stock', 'Out of Stock'];
 const InventoryPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [activeTab, setActiveTab] = useState('All Products');
+    const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+    const [refreshTrigger, setRefreshTrigger] = useState(0);
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
@@ -52,7 +55,7 @@ const InventoryPage = () => {
                                     ))}
                                 </div>
 
-                                <Button icon={Plus}>Add Product</Button>
+                                <Button icon={Plus} onClick={() => setIsAddModalOpen(true)}>Add Product</Button>
                             </div>
                         </div>
 
@@ -71,7 +74,13 @@ const InventoryPage = () => {
                         </div>
 
                         {/* Inventory Table */}
-                        <InventoryTable />
+                        <InventoryTable refreshTrigger={refreshTrigger} />
+
+                        <ProductModal
+                            isOpen={isAddModalOpen}
+                            onClose={() => setIsAddModalOpen(false)}
+                            onSuccess={() => setRefreshTrigger(r => r + 1)}
+                        />
 
                         {/* Extra padding buffer for scroll bottom safety */}
                         <div className="h-8"></div>

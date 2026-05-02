@@ -4,7 +4,6 @@ import TopNavbar from '../components/TopNavbar';
 import ProductCard from '../components/ProductCard';
 import CartPanel from '../components/CartPanel';
 import { Search, Filter } from 'lucide-react';
-import { salesProducts } from '../data/mockData';
 
 const categories = ['All', 'Dairy', 'Snacks', 'Staples'];
 
@@ -13,6 +12,31 @@ const SalesPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [cartItems, setCartItems] = useState([]);
+    const [salesProducts, setSalesProducts] = useState([]);
+
+    const fetchProducts = async () => {
+        try {
+            const res = await fetch('/api/products', {
+                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            });
+            if (res.ok) {
+                const jsonRes = await res.json();
+                if (jsonRes.success && Array.isArray(jsonRes.data)) {
+                    setSalesProducts(jsonRes.data.map(p => ({
+                        ...p,
+                        id: p._id,
+                        image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
+                    })));
+                }
+            }
+        } catch (err) {
+            console.error("Fetch products failed:", err);
+        }
+    };
+
+    React.useEffect(() => {
+        fetchProducts();
+    }, []);
 
     /* ─── Filtered Products ─────────────────────────── */
     const filtered = useMemo(() => {
@@ -27,7 +51,7 @@ const SalesPage = () => {
             );
         }
         return list;
-    }, [activeCategory, searchQuery]);
+    }, [activeCategory, searchQuery, salesProducts]);
 
     /* ─── Cart Handlers ─────────────────────────────── */
     const addToCart = (product) => {
@@ -56,6 +80,29 @@ const SalesPage = () => {
 
     const removeItem = (id) => {
         setCartItems((prev) => prev.filter((item) => item.id !== id));
+    };
+
+    const handleCompleteSale = async () => {
+        if (cartItems.length === 0) return;
+        try {
+            for (const item of cartItems) {
+                await fetch('/api/sales', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    },
+                    body: JSON.stringify({ productId: item.id, quantity: item.quantity })
+                });
+            }
+            // Clear cart & Refresh products
+            setCartItems([]);
+            fetchProducts();
+            alert("Sale completed successfully! Stock updated.");
+        } catch (error) {
+            console.error("Sale failed:", error);
+            alert("Error processing sale.");
+        }
     };
 
     return (
@@ -136,6 +183,7 @@ const SalesPage = () => {
                                 cartItems={cartItems}
                                 onUpdateQuantity={updateQuantity}
                                 onRemoveItem={removeItem}
+                                onCompleteSale={handleCompleteSale}
                             />
                         </div>
 

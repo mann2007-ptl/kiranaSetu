@@ -1,9 +1,35 @@
 import React from 'react';
 import Card from './Card';
 import Badge from './Badge';
-import { inventoryList } from '../data/mockData';
 
 const InventoryList = () => {
+    const [inventoryList, setInventoryList] = React.useState([]);
+
+    React.useEffect(() => {
+        const fetchInventoryList = async () => {
+            try {
+                const res = await fetch('/api/products', {
+                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                });
+                if (res.ok) {
+                    const jsonRes = await res.json();
+                    if (jsonRes.success && Array.isArray(jsonRes.data)) {
+                        setInventoryList(jsonRes.data.map(p => ({
+                            ...p,
+                            id: p._id,
+                            price: `₹${p.price}`,
+                            status: p.stock < 20 ? 'low' : 'normal',
+                            image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
+                        })));
+                    }
+                }
+            } catch (err) {
+                console.error("Products error:", err);
+            }
+        };
+        fetchInventoryList();
+    }, []);
+
     return (
         <Card className="h-full flex flex-col" noPadding>
             <div className="p-6 border-b border-gray-100 dark:border-gray-700 flex justify-between items-center">
@@ -24,11 +50,9 @@ const InventoryList = () => {
                             className="flex items-center gap-4 p-4 lg:p-5 border-b border-gray-50 dark:border-gray-700/50 hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition-colors duration-200 last:border-0"
                         >
                             <div className="shrink-0 w-12 h-12 rounded-xl overflow-hidden bg-gray-100 dark:bg-gray-700 shadow-sm border border-gray-200 dark:border-gray-600">
-                                <img
-                                    src={item.image}
-                                    alt={item.name}
-                                    className="w-full h-full object-cover"
-                                />
+                                <div className="w-full h-full flex items-center justify-center font-bold text-gray-500 dark:text-gray-400 bg-gray-50 dark:bg-gray-800">
+                                    {item.name.charAt(0).toUpperCase()}
+                                </div>
                             </div>
 
                             <div className="flex-1 min-w-0">
