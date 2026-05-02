@@ -17,9 +17,9 @@ const SalesChart = () => {
                     console.error("Sales trend failed to load");
                     return;
                 }
-                const data = await res.json();
-                if (Array.isArray(data)) {
-                    setChartData(data);
+                const jsonRes = await res.json();
+                if (Array.isArray(jsonRes.data)) {
+                    setChartData(jsonRes.data);
                 }
             } catch (error) {
                 console.error("Error fetching trend:", error);

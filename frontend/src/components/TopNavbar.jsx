@@ -1,8 +1,21 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Search, Bell, Menu } from 'lucide-react';
 import ThemeToggle from './ThemeToggle';
 
 const TopNavbar = ({ onMenuClick }) => {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        try {
+            const userData = JSON.parse(localStorage.getItem('user'));
+            setUser(userData);
+        } catch (e) {
+            console.error('Failed to parse user', e);
+        }
+    }, []);
+
+    const initials = user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U';
+
     return (
         <header className="h-16 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-gray-100 dark:border-gray-800 flex items-center justify-between px-4 sm:px-6 lg:px-8 z-30 sticky top-0 shrink-0">
             <div className="flex items-center gap-4 flex-1">
@@ -36,12 +49,13 @@ const TopNavbar = ({ onMenuClick }) => {
 
                 <div className="h-8 w-px bg-gray-200 dark:bg-gray-700 hidden sm:block"></div>
 
-                <button className="flex items-center p-1 rounded-full border border-gray-100 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group">
-                    <img
-                        src="https://images.unsplash.com/photo-1599566150163-29194dcaad36?w=100&h=100&q=80"
-                        alt="User profile"
-                        className="w-8 h-8 rounded-full object-cover shadow-sm bg-indigo-100"
-                    />
+                <button className="flex items-center gap-2 p-1.5 pl-3 pr-2 rounded-full border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors cursor-pointer group bg-white dark:bg-gray-900 shadow-sm">
+                    <span className="text-sm font-semibold text-gray-700 dark:text-gray-200 ml-1 truncate max-w-[100px] sm:max-w-[150px]">
+                        {user?.name || 'User'}
+                    </span>
+                    <div className="w-8 h-8 rounded-full bg-gradient-to-r from-indigo-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs ring-2 ring-white dark:ring-gray-900 shrink-0">
+                        {initials}
+                    </div>
                 </button>
             </div>
         </header>
