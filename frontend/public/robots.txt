@@ -1,0 +1,14 @@
+# KiranaSetu - AI-Powered Kirana Store Management
+# https://kiranasetu.vercel.app
+
+User-agent: *
+Allow: /
+Disallow: /dashboard
+Disallow: /inventory
+Disallow: /sales
+Disallow: /forecast
+Disallow: /alerts
+Disallow: /nearby-supply
+Disallow: /settings
+
+Sitemap: https://kiranasetu.vercel.app/sitemap.xml
