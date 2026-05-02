@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { apiFetch } from '../config/api';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import ProductCard from '../components/ProductCard';
@@ -16,8 +18,7 @@ const SalesPage = () => {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch('/api/products', {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            const res = await apiFetch('/api/products', {
             });
             if (res.ok) {
                 const jsonRes = await res.json();
@@ -86,11 +87,10 @@ const SalesPage = () => {
         if (cartItems.length === 0) return;
         try {
             for (const item of cartItems) {
-                await fetch('/api/sales', {
+                await apiFetch('/api/sales', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
                     },
                     body: JSON.stringify({ productId: item.id, quantity: item.quantity })
                 });
@@ -107,6 +107,11 @@ const SalesPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+
+            <Helmet>
+                <title>Point of Sale — KiranaSetu</title>
+                <meta name="description" content="Quick billing and order management — browse products, add to cart, and complete sales in real-time." />
+            </Helmet>
 
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 

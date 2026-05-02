@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react';
+import { apiFetch } from '../config/api';
+import { Helmet } from 'react-helmet-async';
 import {
     User, Store, Lock, Bell, ShieldAlert, CreditCard,
     UploadCloud, Database, Activity, RefreshCw, AlertTriangle
@@ -35,11 +37,10 @@ const SettingsPage = () => {
     const handleSaveProfile = async () => {
         setIsSaving(true);
         try {
-            const res = await fetch('/api/auth/profile', {
+            const res = await apiFetch('/api/auth/profile', {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify(profileData)
             });
@@ -76,6 +77,10 @@ const SettingsPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+            <Helmet>
+                <title>Settings — KiranaSetu</title>
+                <meta name="description" content="Manage your store profile, notification preferences, security settings, and account configuration." />
+            </Helmet>
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
             <div className="flex-1 flex flex-col h-screen min-w-0">
