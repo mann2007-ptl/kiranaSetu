@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
+import { Helmet } from 'react-helmet-async';
+import { apiFetch } from '../config/api';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import StatCard from '../components/StatCard';
@@ -9,14 +12,23 @@ import InventoryList from '../components/InventoryList';
 const DashboardPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
     const [stats, setStats] = useState([]);
+    const [searchParams, setSearchParams] = useSearchParams();
+
+    // Handle Google OAuth redirect — extract token from URL
+    useEffect(() => {
+        const token = searchParams.get('token');
+        if (token) {
+            localStorage.setItem('token', token);
+            // Clean the URL
+            searchParams.delete('token');
+            setSearchParams(searchParams, { replace: true });
+        }
+    }, []);
 
     useEffect(() => {
         const fetchStats = async () => {
             try {
-                const res = await fetch('/api/dashboard/stats', {
-                    headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}`
-                    }
+                const res = await apiFetch('/api/dashboard/stats', {
                 });
                 if (!res.ok) {
                     console.error("Dashboard stats failed:", await res.text());
@@ -68,6 +80,11 @@ const DashboardPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+
+            <Helmet>
+                <title>Dashboard — KiranaSetu</title>
+                <meta name="description" content="Your AI-powered kirana store dashboard — view real-time stats, sales trends, and intelligent insights." />
+            </Helmet>
 
             {/* Fixed Sidebar */}
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />

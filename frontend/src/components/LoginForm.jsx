@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import { apiFetch, API_BASE } from '../config/api'
 import { useFormik } from 'formik'
 import { Link, useNavigate } from 'react-router-dom'
 import EmailIcon from '@mui/icons-material/Email'
@@ -29,7 +30,7 @@ function LoginForm() {
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       try {
-        const response = await fetch('/api/auth/login', {
+        const response = await apiFetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values),
@@ -116,7 +117,7 @@ function LoginForm() {
         {/* Google button */}
         <button
           type="button"
-          onClick={() => { window.location.href = 'http://localhost:5000/api/auth/google' }}
+          onClick={() => { window.location.href = `${API_BASE}/api/auth/google` }}
           className="w-full border border-gray-200 dark:border-gray-700 rounded-xl py-3.5 flex items-center justify-center gap-2
             hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium text-sm text-gray-700 dark:text-gray-200 bg-white dark:bg-gray-800 cursor-pointer"
         >
