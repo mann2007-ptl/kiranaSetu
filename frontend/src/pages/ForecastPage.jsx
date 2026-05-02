@@ -159,8 +159,8 @@ const ForecastPage = () => {
                                                 <tr key={item.id} className="hover:bg-gray-50/50 dark:hover:bg-gray-700/40 transition-colors group">
                                                     <td className="px-6 py-4">
                                                         <div className="flex items-center gap-3">
-                                                            <div className="w-10 h-10 rounded-lg overflow-hidden bg-gray-100 dark:bg-gray-700 shrink-0">
-                                                                <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
+                                                            <div className="w-10 h-10 rounded-lg shrink-0 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 flex items-center justify-center text-indigo-600 dark:text-indigo-400 font-bold">
+                                                                {item.name.charAt(0).toUpperCase()}
                                                             </div>
                                                             <div>
                                                                 <p className="font-semibold text-gray-900 dark:text-white">{item.name}</p>

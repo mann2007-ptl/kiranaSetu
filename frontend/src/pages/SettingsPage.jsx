@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     User, Store, Lock, Bell, ShieldAlert, CreditCard,
     UploadCloud, Database, Activity, RefreshCw, AlertTriangle
@@ -11,6 +11,53 @@ import Badge from '../components/Badge';
 
 const SettingsPage = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
+    const [user, setUser] = useState(null);
+    const [profileData, setProfileData] = useState({
+        name: '', email: '', storeName: '', phone: ''
+    });
+    const [isSaving, setIsSaving] = useState(false);
+
+    useEffect(() => {
+        try {
+            const userData = JSON.parse(localStorage.getItem('user'));
+            if (userData) {
+                setUser(userData);
+                setProfileData({
+                    name: userData.name || '',
+                    email: userData.email || '',
+                    storeName: userData.storeName || '',
+                    phone: userData.phone || ''
+                });
+            }
+        } catch (e) { }
+    }, []);
+
+    const handleSaveProfile = async () => {
+        setIsSaving(true);
+        try {
+            const res = await fetch('/api/auth/profile', {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${localStorage.getItem('token')}`
+                },
+                body: JSON.stringify(profileData)
+            });
+            const data = await res.json();
+            if (data.success) {
+                localStorage.setItem('user', JSON.stringify(data.data));
+                setUser(data.data);
+                alert('Profile updated successfully!');
+            } else {
+                alert(data.message || 'Update failed');
+            }
+        } catch (e) {
+            console.error(e);
+            alert('An error occurred');
+        } finally {
+            setIsSaving(false);
+        }
+    };
 
     // States for custom toggles
     const [gstEnabled, setGstEnabled] = useState(true);
@@ -23,6 +70,9 @@ const SettingsPage = () => {
     const [alertsSMS, setAlertsSMS] = useState(false);
 
     const [twoFactor, setTwoFactor] = useState(false);
+
+    // Reusable input class
+    const inputClass = "w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-900 focus:bg-white dark:focus:bg-gray-800 focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900 dark:text-white";
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
@@ -39,7 +89,7 @@ const SettingsPage = () => {
                             <span className="text-xs font-bold tracking-wider text-indigo-600 uppercase mb-1 block">
                                 System Settings
                             </span>
-                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 tracking-tight">
+                            <h1 className="text-2xl sm:text-3xl font-extrabold text-gray-900 dark:text-white tracking-tight">
                                 Settings
                             </h1>
                             <p className="mt-1.5 text-sm sm:text-base text-gray-500 font-medium max-w-2xl">
@@ -56,70 +106,72 @@ const SettingsPage = () => {
                                 {/* Profile Settings Card */}
                                 <Card>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-xl bg-indigo-50 flex items-center justify-center">
-                                            <User size={20} className="text-indigo-600" />
+                                        <div className="w-10 h-10 rounded-xl bg-indigo-50 dark:bg-indigo-900/30 flex items-center justify-center border border-indigo-100 dark:border-indigo-800">
+                                            <User size={20} className="text-indigo-600 dark:text-indigo-400" />
                                         </div>
                                         <div>
-                                            <h2 className="text-lg font-bold text-gray-900">Profile Settings</h2>
+                                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Profile Settings</h2>
                                             <p className="text-sm text-gray-500">Update your store’s basic profile information.</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Store Name</label>
-                                            <input type="text" defaultValue="KiranaSetu Store" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Store Name</label>
+                                            <input type="text" value={profileData.storeName} onChange={e => setProfileData({ ...profileData, storeName: e.target.value })} className={inputClass} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Owner Name</label>
-                                            <input type="text" defaultValue="Rahul Sharma" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Owner Name</label>
+                                            <input type="text" value={profileData.name} onChange={e => setProfileData({ ...profileData, name: e.target.value })} className={inputClass} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Email Address</label>
-                                            <input type="email" defaultValue="rahul@store.com" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Email Address</label>
+                                            <input type="email" value={profileData.email} onChange={e => setProfileData({ ...profileData, email: e.target.value })} className={inputClass} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Phone Number</label>
-                                            <input type="tel" defaultValue="+91 98765 43210" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Phone Number</label>
+                                            <input type="tel" value={profileData.phone} onChange={e => setProfileData({ ...profileData, phone: e.target.value })} className={inputClass} />
                                         </div>
                                     </div>
 
-                                    <div className="flex flex-col sm:flex-row gap-4 pt-2 border-t border-gray-100 mt-2">
+                                    <div className="flex flex-col sm:flex-row gap-4 pt-4 border-t border-gray-100 dark:border-gray-700 mt-2">
                                         <Button variant="secondary" icon={UploadCloud} className="flex-1 sm:flex-none justify-center">Upload Logo</Button>
-                                        <Button variant="primary" className="flex-1 sm:flex-none justify-center">Save Changes</Button>
+                                        <Button variant="primary" onClick={handleSaveProfile} disabled={isSaving} className="flex-1 sm:flex-none justify-center">
+                                            {isSaving ? 'Saving...' : 'Save Changes'}
+                                        </Button>
                                     </div>
                                 </Card>
 
                                 {/* Store Preferences Card */}
                                 <Card>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-xl bg-blue-50 flex items-center justify-center">
-                                            <Store size={20} className="text-blue-600" />
+                                        <div className="w-10 h-10 rounded-xl bg-blue-50 dark:bg-blue-900/30 flex items-center justify-center border border-blue-100 dark:border-blue-800">
+                                            <Store size={20} className="text-blue-600 dark:text-blue-400" />
                                         </div>
                                         <div>
-                                            <h2 className="text-lg font-bold text-gray-900">Store Preferences</h2>
+                                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Store Preferences</h2>
                                             <p className="text-sm text-gray-500">Regional and tracking configurations.</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-8">
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Currency</label>
-                                            <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900">
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Currency</label>
+                                            <select className={`${inputClass} appearance-none`}>
                                                 <option value="INR">INR (₹)</option>
                                                 <option value="USD">USD ($)</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Timezone</label>
-                                            <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900">
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Timezone</label>
+                                            <select className={`${inputClass} appearance-none`}>
                                                 <option value="IST">Asia/Kolkata</option>
                                                 <option value="UTC">UTC</option>
                                             </select>
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Language</label>
-                                            <select className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900">
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Language</label>
+                                            <select className={`${inputClass} appearance-none`}>
                                                 <option value="en">English (US)</option>
                                                 <option value="hi">Hindi</option>
                                             </select>
@@ -131,7 +183,7 @@ const SettingsPage = () => {
                                         <AnimatedToggle label="Enable Auto Inventory Tracking" active={autoTrack} onChange={() => setAutoTrack(!autoTrack)} />
                                     </div>
 
-                                    <div className="pt-6 border-t border-gray-100">
+                                    <div className="pt-6 border-t border-gray-100 dark:border-gray-700">
                                         <Button variant="primary">Save Preferences</Button>
                                     </div>
                                 </Card>
@@ -139,11 +191,11 @@ const SettingsPage = () => {
                                 {/* Notification Settings Card */}
                                 <Card>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-xl bg-emerald-50 flex items-center justify-center">
-                                            <Bell size={20} className="text-emerald-600" />
+                                        <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-900/30 flex items-center justify-center border border-emerald-100 dark:border-emerald-800">
+                                            <Bell size={20} className="text-emerald-600 dark:text-emerald-400" />
                                         </div>
                                         <div>
-                                            <h2 className="text-lg font-bold text-gray-900">Notification Settings</h2>
+                                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Notification Settings</h2>
                                             <p className="text-sm text-gray-500">Control when and how you are notified.</p>
                                         </div>
                                     </div>
@@ -152,7 +204,7 @@ const SettingsPage = () => {
                                         <AnimatedToggle label="Low Stock Alerts" active={alertsLowStock} onChange={() => setAlertsLowStock(!alertsLowStock)} />
                                         <AnimatedToggle label="Demand Spike Alerts" active={alertsDemand} onChange={() => setAlertsDemand(!alertsDemand)} />
                                         <AnimatedToggle label="Daily Sales Summary" active={alertsDaily} onChange={() => setAlertsDaily(!alertsDaily)} />
-                                        <hr className="border-gray-100 my-4" />
+                                        <hr className="border-gray-100 dark:border-gray-700 my-4" />
                                         <AnimatedToggle label="Email Notifications" active={alertsEmail} onChange={() => setAlertsEmail(!alertsEmail)} />
                                         <AnimatedToggle label="SMS Notifications" active={alertsSMS} onChange={() => setAlertsSMS(!alertsSMS)} />
                                     </div>
@@ -161,27 +213,27 @@ const SettingsPage = () => {
                                 {/* Security Settings Card */}
                                 <Card>
                                     <div className="flex items-center gap-3 mb-6">
-                                        <div className="w-10 h-10 rounded-xl bg-slate-100 flex items-center justify-center">
-                                            <ShieldAlert size={20} className="text-slate-600" />
+                                        <div className="w-10 h-10 rounded-xl bg-slate-100 dark:bg-slate-800 flex items-center justify-center border border-slate-200 dark:border-slate-700">
+                                            <ShieldAlert size={20} className="text-slate-600 dark:text-slate-400" />
                                         </div>
                                         <div>
-                                            <h2 className="text-lg font-bold text-gray-900">Security Settings</h2>
+                                            <h2 className="text-lg font-bold text-gray-900 dark:text-white">Security Settings</h2>
                                             <p className="text-sm text-gray-500">Manage your passwords and two-factor authentication.</p>
                                         </div>
                                     </div>
 
                                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-8">
                                         <div className="sm:col-span-2">
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Current Password</label>
-                                            <input type="password" placeholder="••••••••" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Current Password</label>
+                                            <input type="password" placeholder="••••••••" className={inputClass} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">New Password</label>
-                                            <input type="password" placeholder="••••••••" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">New Password</label>
+                                            <input type="password" placeholder="••••••••" className={inputClass} />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-semibold text-gray-700 mb-1.5">Confirm Password</label>
-                                            <input type="password" placeholder="••••••••" className="w-full px-4 py-2.5 rounded-xl border border-gray-200 bg-gray-50 focus:bg-white focus:outline-none focus:ring-2 focus:ring-indigo-500/20 focus:border-indigo-500 transition-all text-sm font-medium text-gray-900" />
+                                            <label className="block text-sm font-semibold text-gray-700 dark:text-gray-300 mb-1.5">Confirm Password</label>
+                                            <input type="password" placeholder="••••••••" className={inputClass} />
                                         </div>
                                     </div>
 
@@ -189,9 +241,9 @@ const SettingsPage = () => {
                                         <AnimatedToggle label="Enable Two-Factor Authentication (2FA)" active={twoFactor} onChange={() => setTwoFactor(!twoFactor)} />
                                     </div>
 
-                                    <div className="pt-6 border-t border-gray-100 flex flex-col sm:flex-row justify-between gap-4">
+                                    <div className="pt-6 border-t border-gray-100 dark:border-gray-700 flex flex-col sm:flex-row justify-between gap-4">
                                         <Button variant="primary">Update Password</Button>
-                                        <button className="text-sm font-semibold text-gray-500 hover:text-rose-600 transition-colors px-4 py-2.5">
+                                        <button className="text-sm font-semibold text-gray-500 hover:text-rose-600 dark:text-gray-400 dark:hover:text-rose-400 transition-colors px-4 py-2.5">
                                             Logout from all devices
                                         </button>
                                     </div>
@@ -204,45 +256,40 @@ const SettingsPage = () => {
 
                                 {/* Account Summary Card */}
                                 <Card className="text-center flex flex-col items-center p-8">
-                                    <div className="w-20 h-20 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-md shadow-indigo-200 mb-4 border-4 border-white">
-                                        RS
+                                    <div className="w-20 h-20 bg-gradient-to-tr from-indigo-500 to-purple-500 rounded-full flex items-center justify-center text-white text-3xl font-bold shadow-md shadow-indigo-200 mb-4 border-4 border-white dark:border-gray-800">
+                                        {user?.name ? user.name.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase() : 'U'}
                                     </div>
-                                    <h3 className="text-lg font-bold text-gray-900">KiranaSetu Store</h3>
-                                    <p className="text-sm text-gray-500 mb-4">rahul@store.com</p>
+                                    <h3 className="text-lg font-bold text-gray-900 dark:text-white">{profileData.storeName || 'KiranaSetu Store'}</h3>
+                                    <p className="text-sm text-gray-500 mb-4">{profileData.email || 'user@store.com'}</p>
 
                                     <div className="flex items-center gap-2 mb-6">
-                                        <Badge variant="primary" className="bg-indigo-50 text-indigo-700 font-bold border border-indigo-100">Pro Plan</Badge>
-                                        <Badge variant="warning" className="font-bold border border-amber-100">14 Days Left</Badge>
+                                        <Badge variant="success" className="bg-emerald-50 text-emerald-700 font-bold border border-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-400 dark:border-emerald-800">Free Forever</Badge>
                                     </div>
-
-                                    <Button variant="primary" className="w-full justify-center shadow-sm shadow-indigo-200 bg-gradient-to-r from-indigo-600 to-purple-600 border-none hover:from-indigo-700 hover:to-purple-700">
-                                        Upgrade Plan
-                                    </Button>
                                 </Card>
 
                                 {/* System Status Card */}
                                 <Card>
                                     <div className="flex items-center gap-2 mb-4">
-                                        <Activity size={18} className="text-emerald-600" />
-                                        <h3 className="text-base font-bold text-gray-900">System Status</h3>
+                                        <Activity size={18} className="text-emerald-600 dark:text-emerald-400" />
+                                        <h3 className="text-base font-bold text-gray-900 dark:text-white">System Status</h3>
                                     </div>
 
                                     <div className="space-y-4">
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="text-gray-500 font-medium flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-emerald-500"></div> API Status</span>
-                                            <span className="font-semibold text-gray-900">Active</span>
+                                            <span className="font-semibold text-gray-900 dark:text-white">Active</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="text-gray-500 font-medium flex items-center gap-2"><Database size={14} /> Database</span>
-                                            <span className="font-semibold text-gray-900">Connected</span>
+                                            <span className="font-semibold text-gray-900 dark:text-white">Connected</span>
                                         </div>
-                                        <div className="flex justify-between items-center text-sm border-t border-gray-100 pt-3">
+                                        <div className="flex justify-between items-center text-sm border-t border-gray-100 dark:border-gray-700 pt-3">
                                             <span className="text-gray-500 font-medium flex items-center gap-2"><RefreshCw size={14} /> Last Sync</span>
-                                            <span className="font-semibold text-gray-900">2 mins ago</span>
+                                            <span className="font-semibold text-gray-900 dark:text-white">2 mins ago</span>
                                         </div>
                                         <div className="flex justify-between items-center text-sm">
                                             <span className="text-gray-500 font-medium">Uptime</span>
-                                            <span className="font-semibold text-emerald-600 bg-emerald-50 px-2 py-0.5 rounded-md">99.9%</span>
+                                            <span className="font-semibold text-emerald-600 bg-emerald-50 dark:bg-emerald-900/30 dark:text-emerald-400 px-2 py-0.5 rounded-md">99.9%</span>
                                         </div>
                                     </div>
                                 </Card>
@@ -250,18 +297,18 @@ const SettingsPage = () => {
                                 {/* Danger Zone Card */}
                                 <Card>
                                     <div className="flex items-center gap-2 mb-4">
-                                        <AlertTriangle size={18} className="text-rose-600" />
-                                        <h3 className="text-base font-bold text-rose-600">Danger Zone</h3>
+                                        <AlertTriangle size={18} className="text-rose-600 dark:text-rose-400" />
+                                        <h3 className="text-base font-bold text-rose-600 dark:text-rose-400">Danger Zone</h3>
                                     </div>
                                     <p className="text-sm text-gray-500 mb-5 leading-relaxed">
                                         Permanently delete your account and remove all store data. This action is not reversible.
                                     </p>
 
                                     <div className="flex flex-col gap-3">
-                                        <button className="w-full px-4 py-2.5 rounded-xl border border-rose-200 text-rose-600 font-semibold hover:bg-rose-50 transition-colors text-sm">
+                                        <button className="w-full px-4 py-2.5 rounded-xl border border-rose-200 dark:border-rose-800 text-rose-600 dark:text-rose-400 font-semibold hover:bg-rose-50 dark:hover:bg-rose-900/30 transition-colors text-sm">
                                             Reset All Data
                                         </button>
-                                        <button className="w-full px-4 py-2.5 rounded-xl bg-rose-600 text-white font-semibold hover:bg-rose-700 transition-colors text-sm shadow-sm shadow-rose-200">
+                                        <button className="w-full px-4 py-2.5 rounded-xl bg-rose-600 text-white font-semibold hover:bg-rose-700 transition-colors text-sm shadow-sm shadow-rose-200 dark:shadow-none">
                                             Delete Account
                                         </button>
                                     </div>
@@ -282,9 +329,9 @@ const SettingsPage = () => {
 const AnimatedToggle = ({ label, active, onChange }) => {
     return (
         <div className="flex items-center justify-between group cursor-pointer" onClick={onChange}>
-            <span className="text-sm font-semibold text-gray-700 group-hover:text-gray-900 transition-colors">{label}</span>
+            <span className="text-sm font-semibold text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-white transition-colors">{label}</span>
             <div
-                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 ease-in-out ${active ? 'bg-indigo-600' : 'bg-gray-200'
+                className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors duration-300 ease-in-out ${active ? 'bg-indigo-600' : 'bg-gray-200 dark:bg-gray-700'
                     }`}
             >
                 <div

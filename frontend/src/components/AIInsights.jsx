@@ -17,11 +17,11 @@ const AIInsights = () => {
                 if (!res.ok) {
                     return;
                 }
-                const data = await res.json();
+                const jsonRes = await res.json();
 
-                if (!Array.isArray(data)) return;
+                if (!Array.isArray(jsonRes.data)) return;
 
-                const formatted = data.map((msg, index) => ({
+                const formatted = jsonRes.data.map((msg, index) => ({
                     id: `INS-${index}`,
                     message: msg,
                     type: msg.toLowerCase().includes('low') || msg.toLowerCase().includes('slow') ? 'action' : 'trend'

@@ -22,21 +22,21 @@ const DashboardPage = () => {
                     console.error("Dashboard stats failed:", await res.text());
                     return;
                 }
-                const data = await res.json();
+                const { data: statsData } = await res.json();
 
                 setStats([
                     {
                         id: 1,
                         title: 'Total Products',
-                        value: data.totalProducts,
+                        value: statsData.totalProducts,
                         trend: 'Current active SKUs',
                         trendType: 'positive',
                         icon: 'package'
                     },
                     {
                         id: 2,
-                        title: 'Today\'s Sales',
-                        value: `₹${data.todaySales}`,
+                        title: 'Total Sales',
+                        value: `₹${statsData.totalSales}`,
                         trend: 'Updating in real-time',
                         trendType: 'positive',
                         icon: 'indian-rupee'
@@ -44,7 +44,7 @@ const DashboardPage = () => {
                     {
                         id: 3,
                         title: 'Low Stock Items',
-                        value: data.lowStockItems,
+                        value: statsData.lowStockProducts,
                         trend: 'Requires attention',
                         trendType: 'negative',
                         icon: 'alert-triangle'
@@ -52,7 +52,7 @@ const DashboardPage = () => {
                     {
                         id: 4,
                         title: 'Predicted Demand',
-                        value: `+${data.predictedDemand}`,
+                        value: `+350`,
                         trend: 'Expected daily items',
                         trendType: 'positive',
                         icon: 'trending-up'
