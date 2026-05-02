@@ -8,7 +8,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility'
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff'
 import StorefrontIcon from '@mui/icons-material/Storefront'
 import InputField from './InputField'
-import loginSchema from './LoginSchema'
+import loginSchema from './loginSchema.js'
 
 function GoogleIcon() {
   return (
