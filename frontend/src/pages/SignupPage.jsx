@@ -1,10 +1,16 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import SignupForm from '../components/SignupForm'
 import SignupSidePanel from '../components/SignupSidePanel'
 
 function SignupPage() {
   return (
     <div className="w-full flex flex-col lg:grid lg:grid-cols-2 relative bg-white dark:bg-gray-950 z-0 lg:h-screen lg:overflow-hidden">
+      <Helmet>
+        <title>Sign Up — KiranaSetu</title>
+        <meta name="description" content="Create your free KiranaSetu account and start managing your kirana store with AI-powered inventory tracking and demand forecasting." />
+        <link rel="canonical" href="https://kiranasetu.vercel.app/signup" />
+      </Helmet>
       <SignupSidePanel />
 
       <div className="z-10 w-full flex flex-col pt-12 pb-24 lg:py-0 lg:pt-[4vh] lg:pb-16 lg:h-screen lg:overflow-y-auto custom-scrollbar">

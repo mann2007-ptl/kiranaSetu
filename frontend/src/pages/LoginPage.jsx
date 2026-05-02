@@ -1,10 +1,16 @@
 import React from 'react'
+import { Helmet } from 'react-helmet-async'
 import LoginForm from '../components/LoginForm'
 import AuthSidePanel from '../components/AuthSidePanel'
 
 function LoginPage() {
   return (
     <div className="w-full flex flex-col lg:grid lg:grid-cols-2 relative bg-white dark:bg-gray-950 z-0 lg:h-screen lg:overflow-hidden">
+      <Helmet>
+        <title>Sign In — KiranaSetu</title>
+        <meta name="description" content="Sign in to your KiranaSetu dashboard to manage inventory, track sales, and get AI-powered insights for your kirana store." />
+        <link rel="canonical" href="https://kiranasetu.vercel.app/login" />
+      </Helmet>
       <AuthSidePanel />
 
       <div className="z-10 w-full flex flex-col pt-12 pb-16 lg:py-0 lg:pt-[3vh] lg:pb-8 lg:h-screen lg:overflow-hidden">
