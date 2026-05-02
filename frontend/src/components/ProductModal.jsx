@@ -4,6 +4,7 @@ import Button from './Button';
 import InputField from './InputField';
 import { useTheme } from '../context/ThemeContext';
 import { X } from 'lucide-react';
+import { apiFetch } from '../config/api';
 
 const ProductModal = ({ isOpen, onClose, product, onSuccess }) => {
     const { isDark } = useTheme();
@@ -39,11 +40,10 @@ const ProductModal = ({ isOpen, onClose, product, onSuccess }) => {
             const url = product ? `/api/products/${product._id || product.id}` : '/api/products';
             const method = product ? 'PUT' : 'POST';
 
-            const res = await fetch(url, {
+            const res = await apiFetch(url, {
                 method,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${localStorage.getItem('token')}`
                 },
                 body: JSON.stringify({
                     name: formData.name,

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Helmet } from 'react-helmet-async';
 import Sidebar from '../components/Sidebar';
 import TopNavbar from '../components/TopNavbar';
 import StatCard from '../components/StatCard';
@@ -18,6 +19,11 @@ const InventoryPage = () => {
 
     return (
         <div className="flex h-screen bg-[#F9FAFB] dark:bg-gray-950 overflow-hidden selection:bg-indigo-100 selection:text-indigo-900 font-sans">
+
+            <Helmet>
+                <title>Inventory — KiranaSetu</title>
+                <meta name="description" content="Manage your complete product inventory — add, edit, delete products and monitor stock levels in real-time." />
+            </Helmet>
 
             {/* Fixed Sidebar */}
             <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />

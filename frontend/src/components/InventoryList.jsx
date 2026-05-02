@@ -1,6 +1,7 @@
 import React from 'react';
 import Card from './Card';
 import Badge from './Badge';
+import { apiFetch } from '../config/api';
 
 const InventoryList = () => {
     const [inventoryList, setInventoryList] = React.useState([]);
@@ -8,8 +9,7 @@ const InventoryList = () => {
     React.useEffect(() => {
         const fetchInventoryList = async () => {
             try {
-                const res = await fetch('/api/products', {
-                    headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+                const res = await apiFetch('/api/products', {
                 });
                 if (res.ok) {
                     const jsonRes = await res.json();

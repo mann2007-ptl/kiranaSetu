@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Card from './Card';
 import Badge from './Badge';
 import { Filter, Edit2, Trash2 } from 'lucide-react';
+import { apiFetch } from '../config/api';
 import ProductModal from './ProductModal';
 
 const ITEMS_PER_PAGE = 5;
@@ -37,8 +38,7 @@ const InventoryTable = ({ refreshTrigger }) => {
 
     const fetchProducts = async () => {
         try {
-            const res = await fetch('/api/products', {
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+            const res = await apiFetch('/api/products', {
             });
             if (res.ok) {
                 const jsonRes = await res.json();
@@ -63,9 +63,8 @@ const InventoryTable = ({ refreshTrigger }) => {
     const handleDelete = async (id) => {
         if (!window.confirm("Are you sure you want to delete this product?")) return;
         try {
-            const res = await fetch(`/api/products/${id}`, {
+            const res = await apiFetch(`/api/products/${id}`, {
                 method: 'DELETE',
-                headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
             });
             if (res.ok) {
                 fetchProducts();
