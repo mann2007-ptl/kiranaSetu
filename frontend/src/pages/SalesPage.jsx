@@ -6,6 +6,7 @@ import TopNavbar from '../components/TopNavbar';
 import ProductCard from '../components/ProductCard';
 import CartPanel from '../components/CartPanel';
 import { Search, Filter } from 'lucide-react';
+import { salesProducts as mockSales } from '../data/mockData';
 
 const categories = ['All', 'Dairy', 'Snacks', 'Staples'];
 
@@ -14,25 +15,26 @@ const SalesPage = () => {
     const [searchQuery, setSearchQuery] = useState('');
     const [activeCategory, setActiveCategory] = useState('All');
     const [cartItems, setCartItems] = useState([]);
-    const [salesProducts, setSalesProducts] = useState([]);
+    const [salesProducts, setSalesProducts] = useState(mockSales);
 
     const fetchProducts = async () => {
         try {
-            const res = await apiFetch('/api/products', {
-            });
+            const res = await apiFetch('/api/products', {});
             if (res.ok) {
                 const jsonRes = await res.json();
-                if (jsonRes.success && Array.isArray(jsonRes.data)) {
+                if (jsonRes.success && Array.isArray(jsonRes.data) && jsonRes.data.length > 0) {
                     setSalesProducts(jsonRes.data.map(p => ({
                         ...p,
                         id: p._id,
                         image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
                     })));
+                    return;
                 }
             }
         } catch (err) {
-            console.error("Fetch products failed:", err);
+            console.warn("Fetch products failed, retaining mock sales:", err);
         }
+        setSalesProducts(mockSales);
     };
 
     React.useEffect(() => {

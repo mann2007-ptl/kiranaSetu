@@ -4,6 +4,7 @@ import Badge from './Badge';
 import { Filter, Edit2, Trash2 } from 'lucide-react';
 import { apiFetch } from '../config/api';
 import ProductModal from './ProductModal';
+import { inventoryProducts as mockInventory } from '../data/mockData';
 
 const ITEMS_PER_PAGE = 5;
 const categories = ['All', 'Dairy', 'Snacks', 'Staples'];
@@ -30,30 +31,37 @@ const getStatusBadge = (status) => {
     }
 };
 
+const formattedMock = mockInventory.map(p => ({
+    ...p,
+    price: p.price || 120,
+    image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
+}));
+
 const InventoryTable = ({ refreshTrigger }) => {
     const [activeCategory, setActiveCategory] = useState('All');
     const [currentPage, setCurrentPage] = useState(1);
-    const [inventoryProducts, setInventoryProducts] = useState([]);
+    const [inventoryProducts, setInventoryProducts] = useState(formattedMock);
     const [editingProduct, setEditingProduct] = useState(null);
 
     const fetchProducts = async () => {
         try {
-            const res = await apiFetch('/api/products', {
-            });
+            const res = await apiFetch('/api/products', {});
             if (res.ok) {
                 const jsonRes = await res.json();
-                if (jsonRes.success && Array.isArray(jsonRes.data)) {
+                if (jsonRes.success && Array.isArray(jsonRes.data) && jsonRes.data.length > 0) {
                     setInventoryProducts(jsonRes.data.map(p => ({
                         ...p,
                         id: p._id,
                         status: p.stock === 0 ? 'out' : p.stock < 20 ? 'low' : 'normal',
                         image: p.image || 'https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&q=80&w=200&h=200'
                     })));
+                    return;
                 }
             }
         } catch (err) {
-            console.error("Products error:", err);
+            console.warn("Products API unreachable, retained mock inventory:", err);
         }
+        setInventoryProducts(formattedMock);
     };
 
     React.useEffect(() => {

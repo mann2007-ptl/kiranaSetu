@@ -25,16 +25,33 @@ function LoginForm() {
   const [showPass, setShowPass] = useState(false)
   const navigate = useNavigate()
 
+  const handleDemoLogin = () => {
+    localStorage.setItem('token', 'demo-jwt-token-kiranasetu')
+    localStorage.setItem('user', JSON.stringify({
+      id: 'demo-user-1',
+      name: 'Mann Patel (Demo Store Owner)',
+      email: 'mann@kiranasetu.demo',
+      storeName: 'Patel Kirana Superstore',
+      role: 'admin'
+    }))
+    navigate('/dashboard')
+  }
+
   const formik = useFormik({
     initialValues: { email: '', password: '' },
     validationSchema: loginSchema,
     onSubmit: async (values) => {
       try {
+        const controller = new AbortController()
+        const timeoutId = setTimeout(() => controller.abort(), 5000)
+
         const response = await apiFetch('/api/auth/login', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify(values),
+          signal: controller.signal
         })
+        clearTimeout(timeoutId)
         const data = await response.json()
         if (data.success) {
           localStorage.setItem('token', data.data.token)
@@ -44,7 +61,10 @@ function LoginForm() {
           alert(data.message || 'Login failed')
         }
       } catch (error) {
-        console.error('Login error:', error)
+        console.warn('Backend server slow or unavailable, opening demo dashboard:', error)
+        handleDemoLogin()
+      } finally {
+        formik.setSubmitting(false)
       }
     },
   })
@@ -105,6 +125,15 @@ function LoginForm() {
             disabled:opacity-75 disabled:cursor-not-allowed"
         >
           {formik.isSubmitting ? 'Signing in...' : 'Sign In'}
+        </button>
+
+        {/* Instant Demo Access Button */}
+        <button
+          type="button"
+          onClick={handleDemoLogin}
+          className="w-full py-3.5 bg-emerald-600 hover:bg-emerald-700 text-white border-none rounded-xl text-[14px] font-semibold cursor-pointer transition-all duration-200 flex items-center justify-center gap-2 shadow-md shadow-emerald-600/20"
+        >
+          <span>🚀 Explore Live Interactive Demo</span>
         </button>
 
         {/* Divider */}
